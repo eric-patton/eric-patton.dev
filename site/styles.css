@@ -227,6 +227,31 @@
   transform: perspective(1600px) rotateY(-3deg) rotateX(1deg) translateY(-6px);
 }
 
+/* The second showcase mirrors the first: image on the left, text on the right. Two identical
+   blocks stacked read as a repeated template; alternating them reads as a spread. */
+.showcase--second {
+  margin-top: var(--ep-space-sm);
+  direction: rtl;
+}
+
+.showcase--second > * {
+  direction: ltr;
+}
+
+.showcase--second .showcase__frame {
+  transform: perspective(1600px) rotateY(7deg) rotateX(2deg);
+}
+
+.showcase--second:hover .showcase__frame {
+  transform: perspective(1600px) rotateY(3deg) rotateX(1deg) translateY(-6px);
+}
+
+@media (max-width: 62rem) {
+  .showcase--second {
+    direction: ltr;
+  }
+}
+
 .metrics {
   display: flex;
   flex-wrap: wrap;

@@ -93,9 +93,9 @@
         <div class="hero__scrim"></div>
 
         <div class="ep-page hero__content">
-          <a class="ep-pill" href="https://requestdesk.eric-patton.dev">
+          <a class="ep-pill" href="#work">
             <span class="ep-dot" aria-hidden="true"></span>
-            RequestDesk is live right now, with a demo login
+            Two demos running right now, both open to anyone
           </a>
 
           <h1 class="ep-display hero__headline">
@@ -134,10 +134,10 @@
         <div class="ep-page">
           <div class="section-head ep-reveal">
             <span class="ep-mono ep-mono--accent">Selected work</span>
-            <h2 class="ep-title">Everything here is public, and one of them is running.</h2>
+            <h2 class="ep-title">Everything here is public, and two of them are running.</h2>
             <p class="ep-lede">
-              No case studies you have to take on trust. Clone any of it, or log into the demo with
-              the credentials printed on its sign-in page.
+              No case studies you have to take on trust. Clone any of it, log into the service desk
+              with the credentials printed on its sign-in page, or just play the card game.
             </p>
           </div>
 
@@ -189,6 +189,60 @@
                 alt="The RequestDesk request list, showing reference numbers, status chips and filters"
                 width="1280"
                 height="800"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </article>
+
+          <article class="showcase showcase--second ep-reveal">
+            <div>
+              <span class="ep-mono" style="color: var(--ep-lime)">
+                Live / Angular 21 / .NET 10 / SignalR
+              </span>
+              <h3 class="ep-title showcase__title">Office Arena TCG</h3>
+              <p class="ep-prose">
+                A 1v1 collectible card game where the cards are the people and events of a software
+                company: Interns, Scrum Masters, Crunch Time, The Blocker. Play the AI, or a
+                colleague over real-time multiplayer. Built as a team-building game and designed to
+                be rebranded, so Office Arena becomes Acme Arena by changing a logo and a string.
+              </p>
+
+              <div class="metrics">
+                <div class="ep-metric">
+                  <div class="ep-metric__value ep-metric__value--accent">67</div>
+                  <div class="ep-mono ep-metric__label">Cards</div>
+                </div>
+                <div class="ep-metric">
+                  <div class="ep-metric__value">8</div>
+                  <div class="ep-mono ep-metric__label">Roles</div>
+                </div>
+                <div class="ep-metric">
+                  <div class="ep-metric__value">194</div>
+                  <div class="ep-mono ep-metric__label">Tests</div>
+                </div>
+              </div>
+
+              <div class="actions">
+                <a class="ep-btn ep-btn--primary" href="https://office-arena.eric-patton.dev">
+                  Play it
+                </a>
+                <a class="ep-btn ep-btn--ghost" href="https://github.com/eric-patton/office-arena" rel="noopener">
+                  Source
+                </a>
+              </div>
+            </div>
+
+            <div class="ep-frame showcase__frame">
+              <div class="ep-frame__bar">
+                <i></i><i></i><i></i>
+                <span class="ep-frame__url">office-arena.eric-patton.dev</span>
+              </div>
+              <img
+                src="/assets/office-arena-match.png"
+                alt="An Office Arena match in progress, showing both heroes, a hand of cards and a card's keyword detail"
+                width="1440"
+                height="900"
                 loading="lazy"
                 decoding="async"
               />
@@ -311,20 +365,20 @@
       <div class="band">
         <div class="ep-page band__row">
           <div class="ep-metric">
-            <div class="ep-metric__value band__value">15</div>
-            <div class="ep-mono ep-metric__label">Years in production</div>
+            <div class="ep-metric__value band__value">15+</div>
+            <div class="ep-mono ep-metric__label">Years of experience</div>
           </div>
           <div class="ep-metric">
             <div class="ep-metric__value band__value">200,000+</div>
             <div class="ep-mono ep-metric__label">People on one platform</div>
           </div>
           <div class="ep-metric">
-            <div class="ep-metric__value band__value ep-metric__value--accent">335</div>
-            <div class="ep-mono ep-metric__label">Tests on the live demo</div>
+            <div class="ep-metric__value band__value ep-metric__value--accent">33</div>
+            <div class="ep-mono ep-metric__label">Codebases shipped</div>
           </div>
           <div class="ep-metric">
-            <div class="ep-metric__value band__value">24</div>
-            <div class="ep-mono ep-metric__label">Public repositories</div>
+            <div class="ep-metric__value band__value">9</div>
+            <div class="ep-mono ep-metric__label">Languages in production</div>
           </div>
         </div>
       </div>
@@ -375,6 +429,48 @@
                 An API over PostgreSQL with a front end that actually uses it: clean architecture,
                 migrations, authentication and roles, an OpenAPI document, container builds and CI
                 from day one.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- How I work ---------------------------------------------------------------- -->
+      <section class="ep-section" id="approach">
+        <div class="ep-page">
+          <div class="section-head ep-reveal">
+            <span class="ep-mono ep-mono--accent">How I work</span>
+            <h2 class="ep-title">Three habits, and why each one exists.</h2>
+          </div>
+
+          <div class="services ep-reveal">
+            <article class="service">
+              <span class="ep-mono service__no">01</span>
+              <h3 class="ep-heading">Findings before changes</h3>
+              <p>
+                On a rescue job the written assessment comes first: what is broken, what is
+                dangerous, what it costs. You can stop there and take that document to somebody
+                else. Nobody should authorise a repair they have not seen described.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="ep-mono service__no">02</span>
+              <h3 class="ep-heading">Tests against the real thing</h3>
+              <p>
+                Integration tests run against a real PostgreSQL in a container, not an in-memory
+                substitute that quietly accepts SQL the real database would reject. It is slower,
+                and it is the only version that means anything.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="ep-mono service__no">03</span>
+              <h3 class="ep-heading">It has to run without me</h3>
+              <p>
+                Container builds, migrations, seeded data and CI, so the project starts with one
+                command on somebody else's machine. Both demos above are one command. A handover
+                that depends on my laptop is not a handover.
               </p>
             </article>
           </div>
