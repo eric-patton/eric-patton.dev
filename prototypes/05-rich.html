@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eric Patton</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #0a0b0f;
+        --bg-2: #101219;
+        --surface: #151824;
+        --surface-2: #1c2030;
+        --line: #262b3b;
+        --line-2: #343a4e;
+
+        --text: #f2f3f7;
+        --text-2: #a3a9bd;
+        --text-3: #6f7689;
+
+        --amber: #ffa94d;
+        --amber-hot: #ff8a3d;
+        --ice: #8fb8ff;
+        --lime: #a6e34d;
+
+        --r-sm: 8px;
+        --r: 14px;
+        --r-lg: 22px;
+
+        --page: 1200px;
+        --gutter: clamp(20px, 4vw, 48px);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      .page { max-width: var(--page); margin: 0 auto; padding-inline: var(--gutter); }
+
+      h1, h2, h3 {
+        font-family: "Bricolage Grotesque", system-ui, sans-serif;
+        margin: 0;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        font-weight: 700;
+      }
+
+      a { color: inherit; }
+
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* ---- Nav ---- */
+      nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: rgba(10, 11, 15, 0.66);
+        border-bottom: 1px solid transparent;
+        transition: border-color 250ms, background 250ms;
+      }
+
+      nav.stuck { border-bottom-color: var(--line); background: rgba(10, 11, 15, 0.9); }
+
+      nav .inner {
+        max-width: var(--page);
+        margin: 0 auto;
+        padding: 14px var(--gutter);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+      .brand .glyph {
+        width: 26px; height: 26px; border-radius: 7px; flex: none;
+        background: linear-gradient(140deg, var(--amber), var(--amber-hot) 55%, #c2410c);
+        box-shadow: 0 0 0 1px rgba(255, 169, 77, 0.35), 0 6px 18px -6px rgba(255, 138, 61, 0.75);
+      }
+
+      .brand b { font-family: "Bricolage Grotesque"; font-size: 16px; letter-spacing: -0.02em; }
+
+      nav .links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-2); }
+      nav .links a { text-decoration: none; transition: color 150ms; }
+      nav .links a:hover { color: var(--text); }
+
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 10px 18px; border-radius: 999px;
+        font-size: 14px; font-weight: 600; text-decoration: none;
+        border: 1px solid transparent;
+        transition: transform 150ms, box-shadow 200ms, background 200ms, border-color 200ms;
+      }
+
+      .btn-primary {
+        background: linear-gradient(140deg, var(--amber), var(--amber-hot));
+        color: #2a1405;
+        box-shadow: 0 8px 26px -10px rgba(255, 138, 61, 0.9);
+      }
+
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -12px rgba(255, 138, 61, 1); }
+
+      .btn-ghost { border-color: var(--line-2); color: var(--text); }
+      .btn-ghost:hover { border-color: var(--text-3); background: rgba(255,255,255,0.03); transform: translateY(-2px); }
+
+      /* ---- Hero ---- */
+      .hero { position: relative; padding: 176px 0 72px; overflow: hidden; }
+
+      /* The stack strip already reads as a divider, so the first section does not need a full
+         section's worth of air above it as well. */
+      #work { padding-top: clamp(56px, 6vw, 86px); }
+
+      .hero-bg {
+        position: absolute; inset: -12% -5% auto -5%; height: 116%;
+        background-image: url("/assets/gen/hero.jpg");
+        background-size: cover; background-position: 50% 42%;
+        opacity: 0.5;
+        will-change: transform;
+      }
+
+      /* Scrims: one to darken the base, one to fade the image out toward the content below. */
+      .hero-scrim {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(120% 85% at 12% 18%, rgba(10,11,15,0.15) 0%, rgba(10,11,15,0.86) 58%, var(--bg) 100%),
+          linear-gradient(to bottom, rgba(10,11,15,0.5) 0%, rgba(10,11,15,0.2) 40%, var(--bg) 96%);
+      }
+
+      .hero .page { position: relative; z-index: 2; }
+
+      .pill {
+        display: inline-flex; align-items: center; gap: 9px;
+        padding: 7px 14px 7px 10px; border-radius: 999px;
+        border: 1px solid var(--line-2);
+        background: rgba(21, 24, 36, 0.72);
+        color: var(--text-2);
+        font-size: 13px; text-decoration: none;
+        transition: border-color 200ms, color 200ms, transform 200ms;
+      }
+
+      .pill:hover { border-color: var(--amber); color: var(--text); transform: translateY(-2px); }
+
+      .dot {
+        width: 7px; height: 7px; border-radius: 50%; background: var(--lime);
+        box-shadow: 0 0 0 4px rgba(166, 227, 77, 0.16);
+        animation: pulse 2.6s ease-in-out infinite;
+      }
+
+      @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.35 } }
+
+      h1 {
+        margin-top: 26px;
+        font-size: clamp(46px, 8.2vw, 108px);
+        font-weight: 800;
+        max-width: 15ch;
+      }
+
+      h1 .grad {
+        background: linear-gradient(100deg, var(--amber) 8%, #ffd9a8 50%, var(--ice) 96%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+
+      .lede {
+        margin-top: 26px; max-width: 56ch;
+        font-size: clamp(17px, 1.5vw, 20px);
+        line-height: 1.62; color: var(--text-2);
+      }
+
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
+      /* ---- Stack strip ---- */
+      .strip {
+        margin-top: 78px; padding-top: 26px;
+        border-top: 1px solid var(--line);
+        display: flex; flex-wrap: wrap; align-items: center; gap: 12px 30px;
+      }
+
+      .strip .label { color: var(--text-3); }
+      .strip .item { font-size: 15px; color: var(--text-2); font-weight: 500; }
+
+      /* ---- Sections ---- */
+      section { padding-block: clamp(72px, 9vw, 128px); }
+
+      .head { margin-bottom: 52px; max-width: 62ch; }
+      .head .kicker { color: var(--amber); margin-bottom: 16px; display: block; }
+      .head h2 { font-size: clamp(32px, 4.4vw, 54px); }
+      .head p { margin: 18px 0 0; color: var(--text-2); font-size: 17px; }
+
+      /* ---- Featured showcase ---- */
+      .showcase {
+        position: relative;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--line);
+        background:
+          radial-gradient(90% 130% at 88% 0%, rgba(143,184,255,0.10), transparent 62%),
+          linear-gradient(160deg, var(--surface), var(--bg-2));
+        padding: clamp(28px, 4vw, 52px);
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: clamp(30px, 4vw, 56px);
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .showcase h3 { font-size: clamp(30px, 3.4vw, 44px); margin-top: 14px; }
+      .showcase p { color: var(--text-2); margin: 18px 0 0; }
+
+      .metrics { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 30px; }
+      .metric .n {
+        font-family: "Bricolage Grotesque"; font-size: 30px; font-weight: 700;
+        letter-spacing: -0.03em; line-height: 1;
+      }
+      .metric .n.hot { color: var(--amber); }
+      .metric .l { color: var(--text-3); margin-top: 6px; }
+
+      /* A browser frame so a flat PNG reads as a running application. */
+      .frame {
+        border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--line-2);
+        background: var(--surface-2);
+        box-shadow: 0 40px 80px -32px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.03);
+        transform: perspective(1600px) rotateY(-7deg) rotateX(2deg);
+        transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+      }
+
+      .showcase:hover .frame { transform: perspective(1600px) rotateY(-3deg) rotateX(1deg) translateY(-6px); }
+
+      .frame .bar {
+        display: flex; align-items: center; gap: 7px;
+        padding: 9px 12px; border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .frame .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a4055; }
+      .frame .bar .url {
+        margin-left: 10px; flex: 1;
+        font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--text-3);
+        background: var(--bg-2); border-radius: 5px; padding: 4px 9px;
+      }
+
+      .frame img { display: block; width: 100%; }
+
+      /* ---- Work grid ---- */
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+      .card {
+        position: relative; display: flex; flex-direction: column;
+        border-radius: var(--r); overflow: hidden;
+        border: 1px solid var(--line);
+        background: linear-gradient(170deg, var(--surface), var(--bg-2));
+        text-decoration: none;
+        transition: transform 300ms cubic-bezier(0.16,1,0.3,1), border-color 300ms, box-shadow 300ms;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: var(--line-2);
+        box-shadow: 0 30px 60px -30px rgba(0,0,0,0.95);
+      }
+
+      .card .art { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--bg-2); }
+      .card .art img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms cubic-bezier(0.16,1,0.3,1); }
+      .card:hover .art img { transform: scale(1.06); }
+
+      .card .art::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(to bottom, transparent 45%, rgba(16,18,25,0.85) 100%);
+      }
+
+      .card .art .tag {
+        position: absolute; left: 14px; bottom: 12px; z-index: 2;
+        color: var(--text-2);
+      }
+
+      .card .body { padding: 18px 20px 22px; display: flex; flex-direction: column; flex: 1; }
+      .card h3 { font-size: 21px; }
+      .card p { color: var(--text-2); font-size: 14.5px; margin: 10px 0 0; line-height: 1.55; }
+
+      .card .foot {
+        margin-top: auto; padding-top: 18px;
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        color: var(--text-3);
+      }
+
+      .card .foot .go { color: var(--amber); transition: transform 250ms; display: inline-block; }
+      .card:hover .foot .go { transform: translateX(4px); }
+
+      .card.live { border-color: rgba(166,227,77,0.28); }
+
+      /* ---- Services ---- */
+      .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+
+      .svc {
+        position: relative; padding: 26px 24px 28px;
+        border-radius: var(--r); border: 1px solid var(--line);
+        background: linear-gradient(170deg, var(--surface), var(--bg-2));
+        overflow: hidden;
+        transition: border-color 300ms, transform 300ms;
+      }
+
+      .svc:hover { border-color: var(--line-2); transform: translateY(-4px); }
+
+      .svc::before {
+        content: ""; position: absolute; inset: -1px -1px auto -1px; height: 2px;
+        background: linear-gradient(90deg, var(--amber), transparent 70%);
+        opacity: 0; transition: opacity 300ms;
+      }
+
+      .svc:hover::before { opacity: 1; }
+
+      .svc .no { color: var(--text-3); }
+      .svc h3 { font-size: 20px; margin-top: 14px; }
+      .svc p { color: var(--text-2); font-size: 14.5px; margin: 12px 0 0; line-height: 1.6; }
+
+      /* ---- Numbers band ---- */
+      .band {
+        border-block: 1px solid var(--line);
+        background:
+          radial-gradient(70% 140% at 50% 0%, rgba(255,169,77,0.07), transparent 70%),
+          var(--bg-2);
+      }
+
+      .band .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 34px; }
+      .band .n {
+        font-family: "Bricolage Grotesque"; font-weight: 800;
+        font-size: clamp(38px, 4.6vw, 60px); letter-spacing: -0.04em; line-height: 1;
+      }
+      .band .n.hot { color: var(--amber); }
+      .band .l { color: var(--text-3); margin-top: 10px; }
+
+      /* ---- Footer ---- */
+      footer { border-top: 1px solid var(--line); padding-block: 46px; }
+      .foot-row { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; }
+      .foot-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 14px; color: var(--text-2); }
+      .foot-links a { text-decoration: none; transition: color 150ms; }
+      .foot-links a:hover { color: var(--amber); }
+      .colophon { color: var(--text-3); font-size: 13px; margin-top: 26px; max-width: 70ch; line-height: 1.7; }
+
+      /* ---- Scroll reveal ---- */
+      .reveal { opacity: 0; transform: translateY(22px); transition: opacity 700ms ease, transform 700ms cubic-bezier(0.16,1,0.3,1); }
+      .reveal.in { opacity: 1; transform: none; }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .frame { transform: none !important; }
+        .dot { animation: none; }
+      }
+
+      @media (max-width: 62rem) {
+        .showcase { grid-template-columns: minmax(0, 1fr); }
+        .frame { transform: none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav id="nav">
+      <div class="inner">
+        <a class="brand" href="#top"><span class="glyph"></span><b>Eric Patton</b></a>
+        <div class="links">
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#teaching">Teaching</a>
+          <a class="btn btn-ghost" href="https://github.com/eric-patton">GitHub</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-scrim"></div>
+
+      <div class="page">
+        <a class="pill" href="https://requestdesk.eric-patton.dev">
+          <span class="dot"></span> RequestDesk is live right now, with a demo login
+        </a>
+
+        <h1>I build the tooling agents run on, and <span class="grad">I fix what they break.</span></h1>
+
+        <p class="lede">
+          Principal software engineer, fifteen years. Custom MCP servers and agent workflows,
+          audits and repairs of AI-generated codebases, and ASP.NET Core backends with the tests
+          and CI that keep them alive after I hand them over.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://requestdesk.eric-patton.dev">Open the live demo</a>
+          <a class="btn btn-ghost" href="#work">See the work</a>
+        </div>
+
+        <div class="strip">
+          <span class="mono label">Working in</span>
+          <span class="item">.NET</span>
+          <span class="item">Angular</span>
+          <span class="item">PostgreSQL</span>
+          <span class="item">TypeScript</span>
+          <span class="item">Python</span>
+          <span class="item">Go</span>
+          <span class="item">Godot 4</span>
+        </div>
+      </div>
+    </header>
+
+    <section id="work">
+      <div class="page">
+        <div class="head reveal">
+          <span class="mono kicker">Selected work</span>
+          <h2>Everything here is public, and one of them is running.</h2>
+          <p>
+            No case studies you have to take on trust. Clone any of it, or log into the demo with
+            the credentials printed on its sign-in page.
+          </p>
+        </div>
+
+        <article class="showcase reveal">
+          <div>
+            <span class="mono" style="color: var(--lime)">Live / .NET 10 / PostgreSQL 17 / Angular 22</span>
+            <h3>RequestDesk</h3>
+            <p>
+              A service request tracker built end to end. A status state machine that refuses
+              illegal moves, an append-only history the application itself cannot rewrite, three
+              roles with genuinely different permissions, and a reporting query that drops to raw
+              SQL where an ORM would embarrass itself.
+            </p>
+
+            <div class="metrics">
+              <div class="metric"><div class="n hot">313</div><div class="l mono">Tests passing</div></div>
+              <div class="metric"><div class="n">5</div><div class="l mono">Test tiers</div></div>
+              <div class="metric"><div class="n">7</div><div class="l mono">Status states</div></div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://requestdesk.eric-patton.dev">Open the demo</a>
+              <a class="btn btn-ghost" href="https://github.com/eric-patton/requestdesk">Source</a>
+            </div>
+          </div>
+
+          <div class="frame">
+            <div class="bar">
+              <i></i><i></i><i></i>
+              <span class="url">requestdesk.eric-patton.dev</span>
+            </div>
+            <img src="/assets/requestdesk-list.png" alt="The RequestDesk request list" loading="lazy" />
+          </div>
+        </article>
+
+        <div class="grid reveal" style="margin-top: 20px">
+          <a class="card" href="https://github.com/eric-patton/cwin">
+            <div class="art">
+              <img src="/assets/gen/cover-cwin.jpg" alt="" loading="lazy" />
+              <span class="mono tag">C# / Windows</span>
+            </div>
+            <div class="body">
+              <h3>cwin</h3>
+              <p>
+                Screenshots, clicks and types into any Windows application without stealing focus,
+                so a coding agent can drive a GUI while you keep working in another window.
+              </p>
+              <div class="foot"><span class="mono">MIT</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+
+          <a class="card" href="https://github.com/eric-patton/postgres-schema-mcp">
+            <div class="art">
+              <img src="/assets/gen/cover-pgmcp.jpg" alt="" loading="lazy" />
+              <span class="mono tag">TypeScript / MCP</span>
+            </div>
+            <div class="body">
+              <h3>postgres-schema-mcp</h3>
+              <p>
+                Read-only database access for an agent: schema browsing, foreign-key maps, column
+                search, capped selects. Writes are rejected, with tests that prove it.
+              </p>
+              <div class="foot"><span class="mono">MIT</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+
+          <a class="card" href="https://github.com/eric-patton/loom">
+            <div class="art">
+              <img src="/assets/gen/cover-loom.jpg" alt="" loading="lazy" />
+              <span class="mono tag">Dart / AST</span>
+            </div>
+            <div class="body">
+              <h3>loom</h3>
+              <p>
+                A two-way visual editor for Flutter source. Ten property edits in the GUI produce
+                exactly ten changed lines in the diff, byte-identical everywhere else.
+              </p>
+              <div class="foot"><span class="mono">MIT</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+
+          <a class="card" href="https://github.com/eric-patton/godot-effects">
+            <div class="art">
+              <img src="/assets/gen/cover-godot.jpg" alt="" loading="lazy" />
+              <span class="mono tag">Godot 4 / GDScript</span>
+            </div>
+            <div class="body">
+              <h3>godot-effects</h3>
+              <p>
+                A parting sea with towering walls of water over a wave simulation, a volumetric
+                pillar of fire, and a voxel water system with rivers, waterfalls and ice.
+              </p>
+              <div class="foot"><span class="mono">14 shaders</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+
+          <a class="card" href="https://github.com/eric-patton/aegis">
+            <div class="art">
+              <img src="/assets/gen/cover-aegis.jpg" alt="" loading="lazy" />
+              <span class="mono tag">C# / Native AOT</span>
+            </div>
+            <div class="body">
+              <h3>aegis</h3>
+              <p>
+                A turn-based terminal RPG cut as a checksummed release: deterministic world
+                generation, an append-only action journal as the save format, no network at all.
+              </p>
+              <div class="foot"><span class="mono">28k lines of tests</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+
+          <a class="card" href="https://github.com/eric-patton/chipcraft">
+            <div class="art">
+              <img src="/assets/gen/cover-chipcraft.jpg" alt="" loading="lazy" />
+              <span class="mono tag">C# / MCP</span>
+            </div>
+            <div class="body">
+              <h3>chipcraft</h3>
+              <p>
+                A music composition engine handed to an agent as tools: a deterministic theory
+                core, MIDI export, SoundFont rendering to audio, and 102 tests keeping it honest.
+              </p>
+              <div class="foot"><span class="mono">MIT</span><span class="go">View source &rarr;</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="band">
+      <section style="padding-block: clamp(48px, 6vw, 78px)">
+        <div class="page row">
+          <div><div class="n">15</div><div class="l mono">Years in production</div></div>
+          <div><div class="n">200,000+</div><div class="l mono">People on one platform</div></div>
+          <div><div class="n hot">313</div><div class="l mono">Tests on the live demo</div></div>
+          <div><div class="n">24</div><div class="l mono">Public repositories</div></div>
+        </div>
+      </section>
+    </div>
+
+    <section id="services">
+      <div class="page">
+        <div class="head reveal">
+          <span class="mono kicker">What I do</span>
+          <h2>Four kinds of work.</h2>
+        </div>
+
+        <div class="services reveal">
+          <div class="svc">
+            <span class="mono no">01</span>
+            <h3>Codebase rescue</h3>
+            <p>
+              Apps spun up by AI coding tools, and projects inherited from a developer who left.
+              You get written findings first: what is broken, what is dangerous, what it costs.
+              You can stop there.
+            </p>
+          </div>
+          <div class="svc">
+            <span class="mono no">02</span>
+            <h3>Agent tooling and MCP</h3>
+            <p>
+              Custom MCP servers over your database, API or codebase, plus the skills, hooks and
+              workflows your team runs them with. Tested like production code, because it is.
+            </p>
+          </div>
+          <div class="svc">
+            <span class="mono no">03</span>
+            <h3>Game systems</h3>
+            <p>
+              Save, inventory, dialogue and combat systems for Godot 4, plus shader and effects
+              work. Reusable subsystems with demo scenes, not scripts welded into a prototype.
+            </p>
+          </div>
+          <div class="svc">
+            <span class="mono no">04</span>
+            <h3>.NET and Angular</h3>
+            <p>
+              An API over PostgreSQL with a front end that uses it: clean architecture,
+              migrations, auth and roles, OpenAPI, container builds and CI on day one.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="teaching">
+      <div class="page">
+        <article class="showcase reveal">
+          <div>
+            <span class="mono" style="color: var(--ice)">Free / 150 hours / Ages 9 and up</span>
+            <h3>From Scratch</h3>
+            <p>
+              A programming curriculum for kids and teens that I wrote and taught: Scratch, Python,
+              desktop apps, 2D games and web development. Each session is a handout, and the
+              handouts compile into one searchable textbook.
+            </p>
+            <p>
+              It is on this page because it is the clearest evidence of the part of the job that is
+              not typing: explaining a system to somebody who does not yet have the words for it.
+              Which is most of what a handover document is.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="https://eric-patton.github.io/from-scratch/">Read it</a>
+            </div>
+          </div>
+
+          <div class="frame">
+            <div class="bar">
+              <i></i><i></i><i></i>
+              <span class="url">eric-patton.github.io/from-scratch</span>
+            </div>
+            <img src="/assets/from-scratch.png" alt="The From Scratch textbook" loading="lazy" />
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <div class="page">
+        <div class="foot-row">
+          <a class="brand" href="#top"><span class="glyph"></span><b>Eric Patton</b></a>
+          <div class="foot-links">
+            <a href="https://github.com/eric-patton">GitHub</a>
+            <a href="https://requestdesk.eric-patton.dev">RequestDesk</a>
+            <a href="https://eric-patton.github.io/from-scratch/">From Scratch</a>
+          </div>
+        </div>
+        <p class="colophon">
+          Greater New Orleans, Louisiana. U.S. Government cleared. This page and the demo above are
+          served from a Mac Mini in my house, through a Cloudflare Tunnel, which is a slightly
+          ridiculous thing to admit on a page about production systems and also completely true.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll reveal, plus a very slight parallax so the hero image is not a static backdrop.
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in')),
+        { rootMargin: '0px 0px -12% 0px' },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      const nav = document.getElementById('nav');
+      const heroBg = document.getElementById('heroBg');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      addEventListener(
+        'scroll',
+        () => {
+          const y = scrollY;
+          nav.classList.toggle('stuck', y > 12);
+          if (!reduced && y < 900) heroBg.style.transform = `translateY(${y * 0.16}px) scale(1.04)`;
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
