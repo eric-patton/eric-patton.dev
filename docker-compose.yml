@@ -1,0 +1,21 @@
+# The site as it runs on the Mac Mini, behind the same Cloudflare Tunnel that serves the
+# RequestDesk demo. Only localhost is published; the tunnel is the only way in from outside.
+#
+# Port 8086 rather than 8085, which the RequestDesk front end already holds.
+#
+#   docker compose up -d --build
+#
+services:
+  web:
+    build:
+      context: .
+    image: eric-patton-dev-web
+    container_name: eric-patton-dev
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8086:80"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

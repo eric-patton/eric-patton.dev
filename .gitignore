@@ -1,0 +1,8 @@
+# Local preview output, assembled by build.sh from site/ and design-system/.
+dist/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

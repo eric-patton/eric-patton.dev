@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Not found - Eric Patton</title>
+    <meta name="robots" content="noindex" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+    />
+
+    <link rel="stylesheet" href="/design-system/tokens.css" />
+    <link rel="stylesheet" href="/design-system/base.css" />
+    <link rel="stylesheet" href="/design-system/components.css" />
+
+    <style>
+      body {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: var(--ep-space-lg);
+        text-align: center;
+      }
+
+      .code {
+        font-family: var(--ep-font-mono);
+        font-size: var(--ep-text-label);
+        letter-spacing: var(--ep-tracking-label);
+        text-transform: uppercase;
+        color: var(--ep-warm);
+      }
+
+      h1 {
+        font-family: var(--ep-font-display);
+        font-size: var(--ep-text-title);
+        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 72;
+        margin-top: var(--ep-space-2xs);
+      }
+
+      p {
+        margin-top: var(--ep-space-sm);
+        color: var(--ep-ink-muted);
+        max-width: 42ch;
+      }
+
+      .actions {
+        margin-top: var(--ep-space-lg);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <p class="code">Error 404</p>
+      <h1>That page is not here.</h1>
+      <p>
+        It may have been renamed, or it may never have existed. The front page has everything
+        anyway; there are not that many pages.
+      </p>
+      <p class="actions">
+        <a class="ep-btn ep-btn--primary" href="/">Back to the front page</a>
+      </p>
+    </main>
+  </body>
+</html>

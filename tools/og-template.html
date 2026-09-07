@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Open Graph card source</title>
+    <!--
+      Not shipped. tools/make-og.mjs renders this at exactly 1200x630 and writes
+      site/assets/og.png, which is what social cards and link unfurls show.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="../design-system/tokens.css" />
+    <link rel="stylesheet" href="../design-system/base.css" />
+    <style>
+      body {
+        width: 1200px;
+        height: 630px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 68px 72px;
+        background: var(--ep-ground);
+        overflow: hidden;
+      }
+
+      .rule {
+        height: 6px;
+        background: var(--ep-accent);
+        width: 92px;
+      }
+
+      h1 {
+        font-family: var(--ep-font-display);
+        font-size: 104px;
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+        font-weight: 600;
+        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 144;
+        margin: 34px 0 0;
+      }
+
+      .lede {
+        margin-top: 26px;
+        font-size: 26px;
+        line-height: 1.45;
+        color: var(--ep-ink-muted);
+        max-width: 30ch;
+      }
+
+      footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 32px;
+        padding-top: 26px;
+        border-top: 1px solid var(--ep-rule);
+      }
+
+      .who {
+        font-family: var(--ep-font-display);
+        font-size: 30px;
+        font-weight: 600;
+        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 48;
+      }
+
+      .meta {
+        font-family: var(--ep-font-mono);
+        font-size: 17px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ep-warm);
+        text-align: right;
+      }
+
+      .domain {
+        font-family: var(--ep-font-mono);
+        font-size: 17px;
+        color: var(--ep-ink-faint);
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="rule"></div>
+      <h1>Software that<br />holds up.</h1>
+      <p class="lede">
+        AI tooling, codebase rescue, and backends built to outlast the handover.
+      </p>
+    </div>
+
+    <footer>
+      <div>
+        <div class="who">Eric Patton</div>
+        <div class="domain">eric-patton.dev</div>
+      </div>
+      <div class="meta">
+        Principal software engineer<br />
+        Fifteen years / New Orleans
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,443 @@
+/*
+ * eric-patton.dev: page layout.
+ *
+ * Everything reusable lives in design-system/. This file only knows how this one page is
+ * arranged. If a rule here starts looking like a component, move it up into the system.
+ */
+
+/* ---- Masthead ------------------------------------------------------------------------- */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ep-ground) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+.masthead__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ep-space-md);
+  min-height: 4.25rem;
+}
+
+.masthead__mark {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-decoration: none;
+  color: var(--ep-ink);
+}
+
+.masthead__name {
+  font-family: var(--ep-font-display);
+  font-size: 1.15rem;
+  font-weight: var(--ep-weight-semibold);
+  letter-spacing: var(--ep-tracking-tight);
+  line-height: 1.1;
+  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 24;
+}
+
+.masthead__role {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ep-ink-faint);
+}
+
+.masthead__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--ep-space-md);
+  font-size: var(--ep-text-small);
+}
+
+.masthead__nav a {
+  color: var(--ep-ink-muted);
+  text-decoration: none;
+  padding-block: 0.25rem;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--ep-duration-fast) var(--ep-ease),
+    border-color var(--ep-duration-fast) var(--ep-ease);
+}
+
+.masthead__nav a:hover {
+  color: var(--ep-ink);
+  border-bottom-color: var(--ep-warm);
+}
+
+/* The role line and the first two links are the first things to go on a narrow screen. The
+   GitHub link stays, because it is the only one that leaves the page. */
+@media (max-width: 34rem) {
+  .masthead__role {
+    display: none;
+  }
+
+  .masthead__nav a:not(:last-child) {
+    display: none;
+  }
+}
+
+/* ---- Hero ------------------------------------------------------------------------------ */
+
+.hero {
+  padding-top: clamp(3.5rem, 2rem + 7vw, 7.5rem);
+  padding-bottom: var(--ep-space-section);
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+/* The headline column is deliberately the wider one. The panel is a sidebar in the newspaper
+   sense: it sits beside the lead, it does not compete with it. */
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--ep-space-2xl);
+  align-items: start;
+}
+
+@media (max-width: 62rem) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ep-space-xl);
+  }
+}
+
+.hero__headline {
+  margin-top: var(--ep-space-sm);
+}
+
+.hero__lede {
+  margin-top: var(--ep-space-md);
+  max-width: 54ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ep-space-xs);
+  margin-top: var(--ep-space-lg);
+}
+
+.hero__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--ep-space-md);
+  margin: var(--ep-space-2xl) 0 0;
+  padding-top: var(--ep-space-md);
+  border-top: 1px solid var(--ep-rule);
+}
+
+.hero__facts dt {
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-label);
+  color: var(--ep-warm);
+  margin-bottom: var(--ep-space-3xs);
+}
+
+.hero__facts dd {
+  margin: 0;
+  font-size: var(--ep-text-small);
+  line-height: var(--ep-leading-normal);
+  color: var(--ep-ink-muted);
+  max-width: 34ch;
+}
+
+/* ---- Live status panel ------------------------------------------------------------------ */
+
+.status-panel {
+  padding: var(--ep-space-md);
+  background: var(--ep-surface);
+  border: 1px solid var(--ep-rule);
+  border-radius: var(--ep-radius-md);
+  box-shadow: var(--ep-shadow-sm);
+  /* Nudged down so its top rule sits against the headline's cap height rather than above it. */
+  margin-top: var(--ep-space-2xs);
+}
+
+.status-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ep-space-2xs);
+  margin-top: var(--ep-space-xs);
+}
+
+.status-panel__name {
+  font-family: var(--ep-font-display);
+  font-size: var(--ep-text-heading);
+  font-weight: var(--ep-weight-semibold);
+  letter-spacing: var(--ep-tracking-tight);
+  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 48;
+}
+
+.status-panel__blurb {
+  margin-top: var(--ep-space-2xs);
+  font-size: var(--ep-text-small);
+  line-height: var(--ep-leading-relaxed);
+  color: var(--ep-ink-muted);
+  text-wrap: pretty;
+}
+
+.status-panel__defs {
+  margin-top: var(--ep-space-md);
+  padding-top: var(--ep-space-sm);
+  border-top: 1px solid var(--ep-rule);
+  grid-template-columns: minmax(3.5rem, max-content) 1fr;
+  gap: var(--ep-space-2xs) var(--ep-space-sm);
+}
+
+.status-panel__go {
+  margin-top: var(--ep-space-md);
+  font-size: var(--ep-text-small);
+}
+
+/* ---- Sections -------------------------------------------------------------------------- */
+
+.section {
+  padding-block: var(--ep-space-section);
+}
+
+.section--sunk {
+  background: var(--ep-ground-sunk);
+  border-block: 1px solid var(--ep-rule);
+}
+
+/* ---- Services -------------------------------------------------------------------------- */
+
+.services {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.service {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, auto);
+  align-items: start;
+  gap: var(--ep-space-md);
+  padding-block: var(--ep-space-lg);
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+.service:first-child {
+  padding-top: 0;
+}
+
+.service:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.service__index {
+  font-size: var(--ep-text-body);
+  font-weight: var(--ep-weight-semibold);
+  color: var(--ep-warm);
+  padding-top: 0.15em;
+}
+
+.service__body p {
+  margin-top: var(--ep-space-2xs);
+  max-width: var(--ep-measure-prose);
+  color: var(--ep-ink-muted);
+  line-height: var(--ep-leading-relaxed);
+  text-wrap: pretty;
+}
+
+.service .ep-tag {
+  justify-self: end;
+  margin-top: 0.35em;
+}
+
+@media (max-width: 52rem) {
+  .service {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .service .ep-tag {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: var(--ep-space-2xs);
+  }
+}
+
+/* ---- Featured project ------------------------------------------------------------------ */
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: var(--ep-space-2xl);
+  align-items: start;
+  padding-bottom: var(--ep-space-2xl);
+  margin-bottom: var(--ep-space-2xl);
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+.feature__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ep-space-2xs);
+}
+
+.feature__title {
+  margin-top: var(--ep-space-xs);
+}
+
+.feature .ep-prose {
+  margin-top: var(--ep-space-sm);
+}
+
+.feature__defs {
+  margin: var(--ep-space-lg) 0 0;
+  padding-top: var(--ep-space-md);
+  border-top: 1px solid var(--ep-rule);
+}
+
+.feature__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ep-space-xs);
+  margin-top: var(--ep-space-lg);
+}
+
+/* The screenshot sits slightly proud of the text column and is cropped from the bottom, so it
+   reads as a window onto a running app rather than as a boxed-in picture of one. */
+.feature__shot {
+  margin: 0;
+  border: 1px solid var(--ep-rule-strong);
+  border-radius: var(--ep-radius-lg);
+  background: var(--ep-surface);
+  box-shadow: var(--ep-shadow-lg);
+  overflow: hidden;
+}
+
+.feature__shot img {
+  width: 100%;
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+.feature__shot figcaption {
+  padding: var(--ep-space-2xs) var(--ep-space-sm);
+  font-size: var(--ep-text-label);
+  color: var(--ep-ink-faint);
+  background: var(--ep-ground-sunk);
+}
+
+@media (max-width: 60rem) {
+  .feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ep-space-xl);
+  }
+}
+
+/* ---- Work grid ------------------------------------------------------------------------- */
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  gap: var(--ep-space-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Teaching -------------------------------------------------------------------------- */
+
+.teaching {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--ep-space-2xl);
+  align-items: start;
+}
+
+.teaching__defs {
+  padding: var(--ep-space-md);
+  background: var(--ep-surface);
+  border: 1px solid var(--ep-rule);
+  border-radius: var(--ep-radius-md);
+}
+
+@media (max-width: 52rem) {
+  .teaching {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ep-space-lg);
+  }
+}
+
+/* ---- Approach -------------------------------------------------------------------------- */
+
+.approach {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--ep-space-lg);
+}
+
+.approach__item {
+  padding-top: var(--ep-space-sm);
+  border-top: 2px solid var(--ep-warm);
+}
+
+.approach__item h3 {
+  margin-bottom: var(--ep-space-2xs);
+}
+
+/* ---- Footer ---------------------------------------------------------------------------- */
+
+.footer {
+  padding-block: var(--ep-space-xl);
+  border-top: 1px solid var(--ep-rule);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: var(--ep-space-md) var(--ep-space-lg);
+  align-items: start;
+}
+
+.footer__name {
+  font-family: var(--ep-font-display);
+  font-size: var(--ep-text-subheading);
+  font-weight: var(--ep-weight-semibold);
+  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 24;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ep-space-md);
+  font-size: var(--ep-text-small);
+}
+
+.footer__links a {
+  color: var(--ep-ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ep-rule-strong);
+  padding-bottom: 1px;
+}
+
+.footer__links a:hover {
+  color: var(--ep-ink);
+  border-bottom-color: var(--ep-warm);
+}
+
+.footer__colophon {
+  grid-column: 1 / -1;
+  padding-top: var(--ep-space-md);
+  border-top: 1px solid var(--ep-rule);
+  max-width: 68ch;
+  font-size: var(--ep-text-label);
+  line-height: var(--ep-leading-normal);
+  color: var(--ep-ink-faint);
+}
+
+@media (max-width: 40rem) {
+  .footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

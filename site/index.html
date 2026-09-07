@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Eric Patton, principal software engineer</title>
+    <meta
+      name="description"
+      content="Principal software engineer, 15 years. Codebase audits and repair, AI agent tooling and MCP servers, ASP.NET Core with PostgreSQL and Angular, Godot systems."
+    />
+    <link rel="canonical" href="https://eric-patton.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eric-patton.dev/" />
+    <meta property="og:title" content="Eric Patton, principal software engineer" />
+    <meta
+      property="og:description"
+      content="I build the AI tooling that writes code, I repair the code it writes, and I build the backends that code has to survive in."
+    />
+    <meta property="og:image" content="https://eric-patton.dev/assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <link rel="stylesheet" href="/design-system/tokens.css" />
+    <link rel="stylesheet" href="/design-system/base.css" />
+    <link rel="stylesheet" href="/design-system/components.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <a class="ep-skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="ep-page masthead__inner">
+        <a class="masthead__mark" href="/">
+          <span class="masthead__name">Eric Patton</span>
+          <span class="ep-mono masthead__role">principal software engineer</span>
+        </a>
+
+        <nav class="masthead__nav" aria-label="Sections">
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="#teaching">Teaching</a>
+          <a href="https://github.com/eric-patton" rel="me noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ---- Hero ------------------------------------------------------------------------ -->
+      <section class="hero">
+        <div class="ep-page">
+          <div class="hero__grid">
+            <div class="hero__text">
+              <p class="ep-eyebrow">Fifteen years / Greater New Orleans</p>
+
+              <h1 class="ep-display hero__headline">
+                Software that<br />holds up.
+              </h1>
+
+              <p class="ep-lede hero__lede">
+                I build the AI tooling that writes code, I repair the code it writes, and I build
+                the backends and game systems that code has to survive in. Findings in writing
+                before I touch anything, tests and CI before I leave.
+              </p>
+
+              <div class="hero__actions">
+                <a
+                  class="ep-btn ep-btn--primary ep-btn--lg"
+                  href="https://requestdesk.eric-patton.dev"
+                >
+                  See a live demo
+                </a>
+                <a
+                  class="ep-btn ep-btn--secondary ep-btn--lg"
+                  href="https://github.com/eric-patton"
+                  rel="me noopener"
+                >
+                  GitHub
+                </a>
+              </div>
+            </div>
+
+            <!-- Not a project card: this is the running service, and it earns the space by being
+                 the one thing on the page a visitor can go and use in the next ten seconds. -->
+            <aside class="status-panel" aria-labelledby="status-panel-title">
+              <p class="ep-eyebrow">Running right now</p>
+
+              <p class="status-panel__head">
+                <span class="ep-chip ep-chip--live">Live</span>
+                <span id="status-panel-title" class="status-panel__name">RequestDesk</span>
+              </p>
+
+              <p class="status-panel__blurb">
+                A service request tracker with a demo login printed on the sign-in page. Three
+                roles, real data, resets itself every hour.
+              </p>
+
+              <dl class="ep-defs status-panel__defs">
+                <dt>Host</dt>
+                <dd>A Mac Mini in New Orleans</dd>
+                <dt>Tests</dt>
+                <dd>313 green, on every push</dd>
+                <dt>Stack</dt>
+                <dd>ASP.NET Core 10, PostgreSQL 17, Angular 22</dd>
+              </dl>
+
+              <p class="status-panel__go">
+                <a class="ep-link" href="https://requestdesk.eric-patton.dev">
+                  requestdesk.eric-patton.dev
+                  <span class="ep-link__arrow" aria-hidden="true">-&gt;</span>
+                </a>
+              </p>
+            </aside>
+          </div>
+
+          <dl class="hero__facts">
+            <div>
+              <dt>Stack</dt>
+              <dd>.NET, Angular, PostgreSQL, TypeScript, Python, Go, Godot</dd>
+            </div>
+            <div>
+              <dt>Background</dt>
+              <dd>Federal and enterprise, including a cloud-native platform serving 200,000+ people</dd>
+            </div>
+            <div>
+              <dt>Clearance</dt>
+              <dd>U.S. Government cleared</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ---- Services --------------------------------------------------------------------- -->
+      <section class="section" id="services">
+        <div class="ep-page">
+          <div class="ep-section-head">
+            <p class="ep-eyebrow">What I do</p>
+            <h2 class="ep-title">Four kinds of work</h2>
+          </div>
+
+          <ol class="services">
+            <li class="service">
+              <span class="service__index ep-mono">01</span>
+              <div class="service__body">
+                <h3 class="ep-heading">Codebase rescue</h3>
+                <p>
+                  Apps spun up by AI coding tools, and projects inherited from a developer who
+                  left. I read it first and tell you plainly what is broken, what is dangerous and
+                  what it costs to fix. Then I fix it and add the tests it never got.
+                </p>
+              </div>
+              <span class="ep-tag">TypeScript / React / Python / SQL</span>
+            </li>
+
+            <li class="service">
+              <span class="service__index ep-mono">02</span>
+              <div class="service__body">
+                <h3 class="ep-heading">Agent tooling and MCP servers</h3>
+                <p>
+                  The layer your AI coding agents actually run on: custom MCP servers over your
+                  database, API or codebase, plus the skills, hooks and workflows your team runs
+                  them with. Tested like production code, because that is what it is.
+                </p>
+              </div>
+              <span class="ep-tag">MCP / TypeScript / C#</span>
+            </li>
+
+            <li class="service">
+              <span class="service__index ep-mono">03</span>
+              <div class="service__body">
+                <h3 class="ep-heading">Game systems</h3>
+                <p>
+                  Save, inventory, dialogue and combat systems for Godot 4, plus shader and
+                  effects work. Built as reusable subsystems with demo scenes and documentation,
+                  not as one-off scripts welded into your prototype.
+                </p>
+              </div>
+              <span class="ep-tag">Godot 4 / GDScript / C#</span>
+            </li>
+
+            <li class="service">
+              <span class="service__index ep-mono">04</span>
+              <div class="service__body">
+                <h3 class="ep-heading">ASP.NET Core and Angular</h3>
+                <p>
+                  A real API over PostgreSQL with a front end that uses it: clean architecture,
+                  migrations, authentication and roles, an OpenAPI document, container builds and
+                  the CI that keeps the whole thing alive after I hand it over.
+                </p>
+              </div>
+              <span class="ep-tag">ASP.NET Core / PostgreSQL / Angular</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ---- Featured work ---------------------------------------------------------------- -->
+      <section class="section section--sunk" id="work">
+        <div class="ep-page">
+          <div class="ep-section-head">
+            <p class="ep-eyebrow">Selected work</p>
+            <h2 class="ep-title">Things you can open and read</h2>
+            <p class="ep-lede">
+              Every one of these is public source you can clone. The first one is also running
+              right now, with a demo login on the page.
+            </p>
+          </div>
+
+          <article class="feature">
+            <div class="feature__text">
+              <p class="feature__chips">
+                <span class="ep-chip ep-chip--live">Live</span>
+                <span class="ep-tag">313 tests</span>
+                <span class="ep-tag">MIT</span>
+              </p>
+
+              <h3 class="ep-title feature__title">RequestDesk</h3>
+
+              <p class="ep-prose">
+                A service request tracker built end to end: a status state machine that refuses
+                illegal moves, an append-only history table the application cannot rewrite, three
+                roles with genuinely different permissions, and a reporting query that drops to
+                raw SQL where an ORM would embarrass itself.
+              </p>
+
+              <dl class="ep-defs feature__defs">
+                <dt>API</dt>
+                <dd>ASP.NET Core 10, clean architecture, EF Core migrations, JWT with refresh rotation</dd>
+                <dt>Data</dt>
+                <dd>PostgreSQL 17, append-only trigger, optimistic concurrency</dd>
+                <dt>Front end</dt>
+                <dd>Angular 22, standalone and zoneless, signals</dd>
+                <dt>Proof</dt>
+                <dd>313 tests over five tiers, integration tests against a real database in a container</dd>
+              </dl>
+
+              <p class="feature__actions">
+                <a class="ep-btn ep-btn--primary" href="https://requestdesk.eric-patton.dev">
+                  Open the demo
+                </a>
+                <a
+                  class="ep-btn ep-btn--secondary"
+                  href="https://github.com/eric-patton/requestdesk"
+                  rel="noopener"
+                >
+                  Read the source
+                </a>
+              </p>
+            </div>
+
+            <figure class="feature__shot">
+              <img
+                src="/assets/requestdesk-list.png"
+                alt="The RequestDesk request list, showing reference numbers, status chips and filters"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="ep-mono">requestdesk.eric-patton.dev</figcaption>
+            </figure>
+          </article>
+
+          <ul class="work-grid">
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">MCP server</p>
+              <h3 class="ep-card__title">
+                <a
+                  class="ep-card__link"
+                  href="https://github.com/eric-patton/postgres-schema-mcp"
+                  rel="noopener"
+                  >postgres-schema-mcp</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                Read-only access to a PostgreSQL database for an AI agent: schema browsing,
+                foreign-key maps, column search, capped selects and an offline data dictionary.
+                Writes are rejected, with tests that prove it.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">TypeScript</span></p>
+            </li>
+
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">Agent tooling</p>
+              <h3 class="ep-card__title">
+                <a class="ep-card__link" href="https://github.com/eric-patton/cwin" rel="noopener"
+                  >cwin</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                A Windows CLI that screenshots, clicks and types into any window without stealing
+                focus, so an agent can drive a GUI while you keep working. Layers three input APIs
+                and picks the right one per app framework.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">C# / PowerShell</span></p>
+            </li>
+
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">Developer tools</p>
+              <h3 class="ep-card__title">
+                <a class="ep-card__link" href="https://github.com/eric-patton/loom" rel="noopener"
+                  >loom</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                A two-way visual editor for Flutter source. Ten property edits in the GUI produce
+                exactly ten changed lines in the diff, with byte-level fidelity everywhere the
+                edit did not touch.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">Dart</span></p>
+            </li>
+
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">Godot 4</p>
+              <h3 class="ep-card__title">
+                <a
+                  class="ep-card__link"
+                  href="https://github.com/eric-patton/godot-effects"
+                  rel="noopener"
+                  >godot-effects</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                A visual effects pack documented for reuse: a parting sea with walls of water over
+                a wave simulation, a volumetric pillar of fire, and a voxel water system with
+                rivers, waterfalls and foam. Fourteen shaders, three demo scenes.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">GDScript</span></p>
+            </li>
+
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">Game systems</p>
+              <h3 class="ep-card__title">
+                <a class="ep-card__link" href="https://github.com/eric-patton/aegis" rel="noopener"
+                  >aegis</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                A turn-based terminal RPG shipped as a checksummed release: seeded deterministic
+                world generation, an append-only action journal as the save format, headless
+                verification commands, no network and no telemetry.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">C# / .NET</span></p>
+            </li>
+
+            <li class="ep-card ep-card--interactive">
+              <p class="ep-eyebrow">MCP server</p>
+              <h3 class="ep-card__title">
+                <a
+                  class="ep-card__link"
+                  href="https://github.com/eric-patton/chipcraft"
+                  rel="noopener"
+                  >chipcraft</a
+                >
+              </h3>
+              <p class="ep-card__body">
+                A music composition engine exposed to an agent as tools: a deterministic theory
+                core, MIDI export and SoundFont rendering to audio, and 102 tests holding the
+                theory honest.
+              </p>
+              <p class="ep-card__footer"><span class="ep-tag">C# / .NET</span></p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---- Teaching --------------------------------------------------------------------- -->
+      <section class="section" id="teaching">
+        <div class="ep-page">
+          <div class="ep-section-head">
+            <p class="ep-eyebrow">Teaching</p>
+            <h2 class="ep-title">A curriculum, written and taught</h2>
+          </div>
+
+          <div class="teaching">
+            <div class="ep-prose">
+              <p>
+                <strong>From Scratch</strong> is a free programming curriculum for kids and teens,
+                roughly 150 hours of material covering Scratch, Python, desktop apps, 2D games and
+                web development. Each session is a handout I wrote and taught; the handouts compile
+                into a single searchable textbook.
+              </p>
+              <p>
+                It is here because it is the clearest evidence of the part of this job that is not
+                typing: explaining a system to somebody who does not yet have the words for it.
+                That is most of what a handover document is.
+              </p>
+              <p>
+                <a class="ep-link" href="https://eric-patton.github.io/from-scratch/" rel="noopener">
+                  Read the textbook <span class="ep-link__arrow" aria-hidden="true">-&gt;</span>
+                </a>
+              </p>
+            </div>
+
+            <dl class="ep-defs teaching__defs">
+              <dt>Audience</dt>
+              <dd>Ages 9 and up, no prior experience</dd>
+              <dt>Length</dt>
+              <dd>About 150 hours across eight phases</dd>
+              <dt>Covers</dt>
+              <dd>Scratch, Python, desktop apps, 2D games, web development</dd>
+              <dt>Cost</dt>
+              <dd>Free, and the source is public</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Approach --------------------------------------------------------------------- -->
+      <section class="section section--sunk" id="approach">
+        <div class="ep-page">
+          <div class="ep-section-head">
+            <p class="ep-eyebrow">How I work</p>
+            <h2 class="ep-title">Three habits, and why</h2>
+          </div>
+
+          <div class="approach">
+            <div class="approach__item">
+              <h3 class="ep-heading">Findings before changes</h3>
+              <p class="ep-card__body">
+                On a rescue job you get the written assessment first: what is broken, what is
+                dangerous, what it costs. You can stop there and take it to somebody else. Nobody
+                should authorise a repair they have not seen described.
+              </p>
+            </div>
+            <div class="approach__item">
+              <h3 class="ep-heading">Tests against the real thing</h3>
+              <p class="ep-card__body">
+                Integration tests run against a real PostgreSQL in a container, not an in-memory
+                substitute that quietly accepts SQL the real database would reject. It is slower
+                and it is the only version that means anything.
+              </p>
+            </div>
+            <div class="approach__item">
+              <h3 class="ep-heading">It has to run without me</h3>
+              <p class="ep-card__body">
+                Container builds, migrations, seeded demo data and CI, so the project starts with
+                one command on somebody else's machine. A handover that depends on my laptop is
+                not a handover.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="ep-page footer__inner">
+        <div>
+          <p class="footer__name">Eric Patton</p>
+          <p class="ep-mono">Greater New Orleans, Louisiana</p>
+        </div>
+
+        <nav class="footer__links" aria-label="Elsewhere">
+          <a href="https://github.com/eric-patton" rel="me noopener">GitHub</a>
+          <a href="https://requestdesk.eric-patton.dev">RequestDesk demo</a>
+          <a href="https://eric-patton.github.io/from-scratch/" rel="noopener">From Scratch</a>
+        </nav>
+
+        <p class="ep-mono footer__colophon">
+          Set in Fraunces, Inter and IBM Plex Mono. Served from a Mac Mini in New Orleans through a
+          Cloudflare Tunnel, which is also where the demo above runs.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

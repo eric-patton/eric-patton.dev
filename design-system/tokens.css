@@ -1,0 +1,281 @@
+/*
+ * Editorial Technical: the design tokens.
+ *
+ * One file, imported by both the eric-patton.dev site and the RequestDesk front end, so the two
+ * read as one product. Everything is prefixed --ep- so it can drop into an app that already has
+ * its own variables (RequestDesk carries Angular Material's) without colliding.
+ *
+ * The system has three voices and each one has a job:
+ *   serif  headlines and pull quotes, the only place with personality
+ *   sans   every piece of working UI, chosen to stay legible in a dense table
+ *   mono   technical detail: counts, stack names, section indices, status codes
+ *
+ * Colour is warm rather than neutral grey. A warm ground makes the ink accent read as considered
+ * instead of corporate, and it stays comfortable on a screen someone reads for an hour.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Type families ------------------------------------------------------------------- */
+  --ep-font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --ep-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --ep-font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Type scale ---------------------------------------------------------------------- */
+  /* Fluid between a 380px phone and a 1280px desktop. The display sizes carry the page, so
+     they move the most; body text barely moves at all, because reading size is reading size. */
+  --ep-text-display: clamp(2.75rem, 1.6rem + 4.8vw, 5.5rem);
+  --ep-text-title: clamp(1.9rem, 1.35rem + 2.3vw, 3rem);
+  --ep-text-heading: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  --ep-text-subheading: 1.125rem;
+  --ep-text-body: 1.0625rem;
+  --ep-text-small: 0.9375rem;
+  --ep-text-fine: 0.8125rem;
+  --ep-text-label: 0.75rem;
+
+  --ep-leading-tight: 1.04;
+  --ep-leading-snug: 1.25;
+  --ep-leading-normal: 1.6;
+  --ep-leading-relaxed: 1.75;
+
+  --ep-tracking-display: -0.022em;
+  --ep-tracking-tight: -0.011em;
+  --ep-tracking-normal: 0;
+  --ep-tracking-label: 0.09em;
+
+  --ep-weight-regular: 400;
+  --ep-weight-medium: 500;
+  --ep-weight-semibold: 600;
+  --ep-weight-bold: 700;
+
+  /* ---- Colour: ground and ink ---------------------------------------------------------- */
+  --ep-ground: #faf8f4;
+  --ep-ground-sunk: #f2eee5;
+  --ep-surface: #ffffff;
+  --ep-surface-raised: #ffffff;
+
+  --ep-ink: #1a1713;
+  --ep-ink-muted: #5f594f;
+  --ep-ink-faint: #8b8478;
+  --ep-ink-inverse: #faf8f4;
+
+  --ep-rule: #e4ded2;
+  --ep-rule-strong: #cdc5b4;
+
+  /* ---- Colour: accent ------------------------------------------------------------------ */
+  /* Deep ink blue. Dark enough to sit on the warm ground at AA for body text, which means the
+     same token works for a link, a button fill and a chart bar without a second variant. */
+  --ep-accent: #1c3a5b;
+  --ep-accent-strong: #142a43;
+  --ep-accent-soft: #e7eef6;
+  --ep-accent-line: #b9cbdd;
+  --ep-on-accent: #f7fafd;
+
+  /* Rust. The second voice, used sparingly: section indices, the mono eyebrow labels, and the
+     one thing on a screen that should catch the eye first. Never for large fills. */
+  --ep-warm: #a4552b;
+  --ep-warm-soft: #f7ece4;
+  --ep-warm-line: #e3c5ae;
+
+  /* ---- Colour: feedback ---------------------------------------------------------------- */
+  --ep-positive: #2f6b34;
+  --ep-positive-soft: #e8f1e6;
+  --ep-caution: #8a6410;
+  --ep-caution-soft: #f8f0da;
+  --ep-critical: #9c2c22;
+  --ep-critical-soft: #f9e9e6;
+
+  /* ---- Colour: RequestDesk status palette ---------------------------------------------- */
+  /* Seven states, and the chip has to stay readable at 12px inside a dense table row. Each one
+     is a dark ink on a tinted ground rather than white on saturated colour, which holds up at
+     small sizes and does not turn the table into a bag of sweets. */
+  --ep-status-new-ink: #1c3a5b;
+  --ep-status-new-bg: #e7eef6;
+  --ep-status-triaged-ink: #4c3f86;
+  --ep-status-triaged-bg: #ece9f7;
+  --ep-status-inprogress-ink: #0f6152;
+  --ep-status-inprogress-bg: #e2f0ec;
+  --ep-status-blocked-ink: #a4552b;
+  --ep-status-blocked-bg: #f7ece4;
+  --ep-status-resolved-ink: #2f6b34;
+  --ep-status-resolved-bg: #e8f1e6;
+  --ep-status-closed-ink: #5f594f;
+  --ep-status-closed-bg: #efece5;
+  --ep-status-cancelled-ink: #8b8478;
+  --ep-status-cancelled-bg: #f2eee5;
+
+  /* ---- Colour: RequestDesk priority ---------------------------------------------------- */
+  --ep-priority-low: #8b8478;
+  --ep-priority-normal: #5f594f;
+  --ep-priority-high: #a4552b;
+  --ep-priority-urgent: #9c2c22;
+
+  /* ---- Space --------------------------------------------------------------------------- */
+  /* A 4px base. Named by size rather than by purpose so the same token can be a gap, a pad or
+     a margin without lying about what it is. */
+  --ep-space-3xs: 0.25rem;
+  --ep-space-2xs: 0.5rem;
+  --ep-space-xs: 0.75rem;
+  --ep-space-sm: 1rem;
+  --ep-space-md: 1.5rem;
+  --ep-space-lg: 2rem;
+  --ep-space-xl: 3rem;
+  --ep-space-2xl: 4.5rem;
+  --ep-space-3xl: 7rem;
+  --ep-space-section: clamp(4rem, 2rem + 8vw, 9rem);
+
+  /* ---- Measure and layout -------------------------------------------------------------- */
+  --ep-measure-prose: 68ch;
+  --ep-measure-narrow: 46ch;
+  --ep-page-max: 76rem;
+  --ep-page-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+
+  /* ---- Radius -------------------------------------------------------------------------- */
+  /* Small on purpose. Editorial work is built from rules and edges, not pills; the one pill
+     in the system is the status chip, where roundness reads as "state" rather than "button". */
+  --ep-radius-xs: 2px;
+  --ep-radius-sm: 4px;
+  --ep-radius-md: 8px;
+  --ep-radius-lg: 14px;
+  --ep-radius-pill: 999px;
+
+  /* ---- Elevation ----------------------------------------------------------------------- */
+  /* Deliberately faint, and warm rather than black, so a card lifts off the ground without
+     the grey haze that makes light UIs look muddy. Most separation is done with rules. */
+  --ep-shadow-sm: 0 1px 2px rgba(38, 30, 20, 0.05);
+  --ep-shadow-md: 0 2px 4px rgba(38, 30, 20, 0.05), 0 8px 20px -12px rgba(38, 30, 20, 0.18);
+  --ep-shadow-lg: 0 4px 8px rgba(38, 30, 20, 0.05), 0 20px 44px -20px rgba(38, 30, 20, 0.22);
+  --ep-focus-ring: 0 0 0 2px var(--ep-ground), 0 0 0 4px var(--ep-accent);
+
+  /* ---- Motion -------------------------------------------------------------------------- */
+  --ep-ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --ep-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ep-duration-fast: 120ms;
+  --ep-duration: 200ms;
+  --ep-duration-slow: 380ms;
+}
+
+/*
+ * Dark. Warm dark, not black: the ground keeps a little of the paper's yellow so the palette
+ * stays recognisably the same system. The accent has to invert, because a deep ink blue is
+ * invisible on a dark ground; it becomes a pale blue and the ink/ground roles swap.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-ep-theme="light"]) {
+    color-scheme: dark;
+
+    --ep-ground: #16140f;
+    --ep-ground-sunk: #100e0a;
+    --ep-surface: #1e1b16;
+    --ep-surface-raised: #26221c;
+
+    --ep-ink: #f3efe7;
+    --ep-ink-muted: #b3aa9b;
+    --ep-ink-faint: #837b6d;
+    --ep-ink-inverse: #16140f;
+
+    --ep-rule: #322d25;
+    --ep-rule-strong: #494237;
+
+    --ep-accent: #9dc0e0;
+    --ep-accent-strong: #c2d9ee;
+    --ep-accent-soft: #1b2833;
+    --ep-accent-line: #35505f;
+    --ep-on-accent: #101c27;
+
+    --ep-warm: #e5a578;
+    --ep-warm-soft: #2b1f16;
+    --ep-warm-line: #4d3524;
+
+    --ep-positive: #86c08a;
+    --ep-positive-soft: #1a2419;
+    --ep-caution: #d7ad55;
+    --ep-caution-soft: #2a2313;
+    --ep-critical: #e79287;
+    --ep-critical-soft: #2c1a17;
+
+    --ep-status-new-ink: #9dc0e0;
+    --ep-status-new-bg: #1b2833;
+    --ep-status-triaged-ink: #b3a6e4;
+    --ep-status-triaged-bg: #221d33;
+    --ep-status-inprogress-ink: #7cc6b4;
+    --ep-status-inprogress-bg: #14261f;
+    --ep-status-blocked-ink: #e5a578;
+    --ep-status-blocked-bg: #2b1f16;
+    --ep-status-resolved-ink: #86c08a;
+    --ep-status-resolved-bg: #1a2419;
+    --ep-status-closed-ink: #b3aa9b;
+    --ep-status-closed-bg: #262219;
+    --ep-status-cancelled-ink: #837b6d;
+    --ep-status-cancelled-bg: #1f1c16;
+
+    --ep-priority-low: #837b6d;
+    --ep-priority-normal: #b3aa9b;
+    --ep-priority-high: #e5a578;
+    --ep-priority-urgent: #e79287;
+
+    --ep-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --ep-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.35), 0 8px 20px -12px rgba(0, 0, 0, 0.7);
+    --ep-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 44px -20px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* An explicit choice always wins over the system preference, in both directions. */
+:root[data-ep-theme="dark"] {
+  color-scheme: dark;
+
+  --ep-ground: #16140f;
+  --ep-ground-sunk: #100e0a;
+  --ep-surface: #1e1b16;
+  --ep-surface-raised: #26221c;
+
+  --ep-ink: #f3efe7;
+  --ep-ink-muted: #b3aa9b;
+  --ep-ink-faint: #837b6d;
+  --ep-ink-inverse: #16140f;
+
+  --ep-rule: #322d25;
+  --ep-rule-strong: #494237;
+
+  --ep-accent: #9dc0e0;
+  --ep-accent-strong: #c2d9ee;
+  --ep-accent-soft: #1b2833;
+  --ep-accent-line: #35505f;
+  --ep-on-accent: #101c27;
+
+  --ep-warm: #e5a578;
+  --ep-warm-soft: #2b1f16;
+  --ep-warm-line: #4d3524;
+
+  --ep-positive: #86c08a;
+  --ep-positive-soft: #1a2419;
+  --ep-caution: #d7ad55;
+  --ep-caution-soft: #2a2313;
+  --ep-critical: #e79287;
+  --ep-critical-soft: #2c1a17;
+
+  --ep-status-new-ink: #9dc0e0;
+  --ep-status-new-bg: #1b2833;
+  --ep-status-triaged-ink: #b3a6e4;
+  --ep-status-triaged-bg: #221d33;
+  --ep-status-inprogress-ink: #7cc6b4;
+  --ep-status-inprogress-bg: #14261f;
+  --ep-status-blocked-ink: #e5a578;
+  --ep-status-blocked-bg: #2b1f16;
+  --ep-status-resolved-ink: #86c08a;
+  --ep-status-resolved-bg: #1a2419;
+  --ep-status-closed-ink: #b3aa9b;
+  --ep-status-closed-bg: #262219;
+  --ep-status-cancelled-ink: #837b6d;
+  --ep-status-cancelled-bg: #1f1c16;
+
+  --ep-priority-low: #837b6d;
+  --ep-priority-normal: #b3aa9b;
+  --ep-priority-high: #e5a578;
+  --ep-priority-urgent: #e79287;
+
+  --ep-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --ep-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.35), 0 8px 20px -12px rgba(0, 0, 0, 0.7);
+  --ep-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 44px -20px rgba(0, 0, 0, 0.8);
+}

@@ -1,0 +1,459 @@
+/*
+ * Editorial Technical: the component layer.
+ *
+ * These are the pieces shared between the site and RequestDesk. Everything is a plain class on
+ * a plain element, no framework, so the same CSS drops into an Angular template unchanged.
+ *
+ * Naming: .ep-<component>, modifiers as .ep-<component>--<variant>, internals as
+ * .ep-<component>__<part>. Boring on purpose; a design system nobody can guess the class name
+ * for gets abandoned.
+ */
+
+/* ---- Button ----------------------------------------------------------------------------- */
+
+.ep-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ep-space-2xs);
+  padding: 0.65rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--ep-radius-sm);
+  background: transparent;
+  font-size: var(--ep-text-small);
+  font-weight: var(--ep-weight-medium);
+  line-height: 1.2;
+  letter-spacing: var(--ep-tracking-tight);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--ep-duration-fast) var(--ep-ease),
+    border-color var(--ep-duration-fast) var(--ep-ease),
+    color var(--ep-duration-fast) var(--ep-ease),
+    transform var(--ep-duration-fast) var(--ep-ease);
+}
+
+.ep-btn:active {
+  transform: translateY(1px);
+}
+
+.ep-btn[disabled],
+.ep-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ep-btn--primary {
+  background: var(--ep-accent);
+  border-color: var(--ep-accent);
+  color: var(--ep-on-accent);
+}
+
+.ep-btn--primary:hover {
+  background: var(--ep-accent-strong);
+  border-color: var(--ep-accent-strong);
+  color: var(--ep-on-accent);
+}
+
+.ep-btn--secondary {
+  background: var(--ep-surface);
+  border-color: var(--ep-rule-strong);
+  color: var(--ep-ink);
+}
+
+.ep-btn--secondary:hover {
+  border-color: var(--ep-ink-faint);
+  color: var(--ep-ink);
+}
+
+.ep-btn--ghost {
+  color: var(--ep-ink-muted);
+}
+
+.ep-btn--ghost:hover {
+  background: var(--ep-ground-sunk);
+  color: var(--ep-ink);
+}
+
+.ep-btn--danger {
+  background: var(--ep-critical);
+  border-color: var(--ep-critical);
+  color: #fff;
+}
+
+.ep-btn--sm {
+  padding: 0.4rem 0.75rem;
+  font-size: var(--ep-text-fine);
+}
+
+.ep-btn--lg {
+  padding: 0.85rem 1.6rem;
+  font-size: var(--ep-text-body);
+}
+
+/* ---- Text link with a moving arrow ------------------------------------------------------ */
+
+.ep-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  font-weight: var(--ep-weight-medium);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ep-accent-line);
+  padding-bottom: 1px;
+  transition: border-color var(--ep-duration-fast) var(--ep-ease);
+}
+
+.ep-link:hover {
+  border-bottom-color: var(--ep-accent);
+}
+
+.ep-link__arrow {
+  transition: transform var(--ep-duration) var(--ep-ease-out);
+}
+
+.ep-link:hover .ep-link__arrow {
+  transform: translateX(3px);
+}
+
+/* ---- Card -------------------------------------------------------------------------------- */
+
+.ep-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ep-space-xs);
+  padding: var(--ep-space-md);
+  background: var(--ep-surface);
+  border: 1px solid var(--ep-rule);
+  border-radius: var(--ep-radius-md);
+  transition:
+    border-color var(--ep-duration) var(--ep-ease),
+    box-shadow var(--ep-duration) var(--ep-ease),
+    transform var(--ep-duration) var(--ep-ease);
+}
+
+.ep-card--interactive:hover {
+  border-color: var(--ep-rule-strong);
+  box-shadow: var(--ep-shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Stretched link: the whole card is the hit area, but only the title is in the tab order and
+   read out by a screen reader, so the accessible name stays the title rather than the card. */
+.ep-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.ep-card__title {
+  font-size: var(--ep-text-subheading);
+  font-weight: var(--ep-weight-semibold);
+  letter-spacing: var(--ep-tracking-tight);
+}
+
+.ep-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ep-card__body {
+  font-size: var(--ep-text-small);
+  line-height: var(--ep-leading-relaxed);
+  color: var(--ep-ink-muted);
+  text-wrap: pretty;
+}
+
+.ep-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ep-space-2xs);
+  margin-top: auto;
+  padding-top: var(--ep-space-xs);
+}
+
+/* ---- Tag ---------------------------------------------------------------------------------- */
+
+.ep-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--ep-rule);
+  border-radius: var(--ep-radius-xs);
+  background: var(--ep-ground-sunk);
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  color: var(--ep-ink-muted);
+  white-space: nowrap;
+}
+
+/* ---- Status chip (RequestDesk) ----------------------------------------------------------- */
+
+.ep-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--ep-radius-pill);
+  font-size: var(--ep-text-label);
+  font-weight: var(--ep-weight-semibold);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  background: var(--ep-ground-sunk);
+  color: var(--ep-ink-muted);
+}
+
+/* The dot carries the colour at a glance; the label carries it for anyone who cannot separate
+   these hues. Never ship the dot without the text. */
+.ep-chip::before {
+  content: "";
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.ep-chip--new {
+  background: var(--ep-status-new-bg);
+  color: var(--ep-status-new-ink);
+}
+.ep-chip--triaged {
+  background: var(--ep-status-triaged-bg);
+  color: var(--ep-status-triaged-ink);
+}
+.ep-chip--inprogress {
+  background: var(--ep-status-inprogress-bg);
+  color: var(--ep-status-inprogress-ink);
+}
+.ep-chip--blocked {
+  background: var(--ep-status-blocked-bg);
+  color: var(--ep-status-blocked-ink);
+}
+.ep-chip--resolved {
+  background: var(--ep-status-resolved-bg);
+  color: var(--ep-status-resolved-ink);
+}
+.ep-chip--closed {
+  background: var(--ep-status-closed-bg);
+  color: var(--ep-status-closed-ink);
+}
+.ep-chip--cancelled {
+  background: var(--ep-status-cancelled-bg);
+  color: var(--ep-status-cancelled-ink);
+}
+
+/* A live/health chip with a slow pulse, used for the demo status on the site. */
+.ep-chip--live {
+  background: var(--ep-positive-soft);
+  color: var(--ep-positive);
+}
+
+.ep-chip--live::before {
+  animation: ep-pulse 2.4s var(--ep-ease) infinite;
+}
+
+@keyframes ep-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+/* ---- Priority badge (RequestDesk) --------------------------------------------------------- */
+
+.ep-priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  font-weight: var(--ep-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-label);
+  color: var(--ep-priority-normal);
+}
+
+.ep-priority--low {
+  color: var(--ep-priority-low);
+}
+.ep-priority--high {
+  color: var(--ep-priority-high);
+}
+.ep-priority--urgent {
+  color: var(--ep-priority-urgent);
+  font-weight: var(--ep-weight-bold);
+}
+
+/* ---- Form field --------------------------------------------------------------------------- */
+
+.ep-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ep-space-3xs);
+}
+
+.ep-field__label {
+  font-size: var(--ep-text-fine);
+  font-weight: var(--ep-weight-medium);
+  color: var(--ep-ink-muted);
+}
+
+.ep-field__control {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: var(--ep-surface);
+  border: 1px solid var(--ep-rule-strong);
+  border-radius: var(--ep-radius-sm);
+  font-size: var(--ep-text-small);
+  transition:
+    border-color var(--ep-duration-fast) var(--ep-ease),
+    background-color var(--ep-duration-fast) var(--ep-ease);
+}
+
+.ep-field__control::placeholder {
+  color: var(--ep-ink-faint);
+}
+
+.ep-field__control:hover {
+  border-color: var(--ep-ink-faint);
+}
+
+.ep-field__hint {
+  font-size: var(--ep-text-label);
+  color: var(--ep-ink-faint);
+}
+
+.ep-field__error {
+  font-size: var(--ep-text-label);
+  color: var(--ep-critical);
+}
+
+.ep-field--invalid .ep-field__control {
+  border-color: var(--ep-critical);
+  background: var(--ep-critical-soft);
+}
+
+/* ---- Data table (RequestDesk) ------------------------------------------------------------- */
+
+.ep-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--ep-rule);
+  border-radius: var(--ep-radius-md);
+  background: var(--ep-surface);
+}
+
+.ep-table {
+  min-width: 44rem;
+  font-size: var(--ep-text-small);
+}
+
+.ep-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--ep-space-2xs) var(--ep-space-sm);
+  background: var(--ep-ground-sunk);
+  border-bottom: 1px solid var(--ep-rule);
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  font-weight: var(--ep-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-label);
+  text-align: left;
+  color: var(--ep-ink-muted);
+  white-space: nowrap;
+}
+
+.ep-table td {
+  padding: var(--ep-space-xs) var(--ep-space-sm);
+  border-bottom: 1px solid var(--ep-rule);
+  vertical-align: middle;
+}
+
+.ep-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ep-table tbody tr {
+  transition: background-color var(--ep-duration-fast) var(--ep-ease);
+}
+
+.ep-table tbody tr:hover {
+  background: var(--ep-ground-sunk);
+}
+
+/* Reference numbers, dates and counts line up in a column only if the digits are the same
+   width. Tabular numerals are the whole reason this class exists. */
+.ep-table__ref {
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-fine);
+  font-variant-numeric: tabular-nums;
+  color: var(--ep-ink-muted);
+  white-space: nowrap;
+}
+
+.ep-table__title {
+  font-weight: var(--ep-weight-medium);
+  color: var(--ep-ink);
+}
+
+/* ---- Section header ----------------------------------------------------------------------- */
+
+.ep-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ep-space-2xs);
+  padding-bottom: var(--ep-space-md);
+  margin-bottom: var(--ep-space-lg);
+  border-bottom: 1px solid var(--ep-rule);
+}
+
+/* ---- Empty state ---------------------------------------------------------------------------- */
+
+.ep-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ep-space-2xs);
+  padding: var(--ep-space-2xl) var(--ep-space-md);
+  text-align: center;
+  color: var(--ep-ink-faint);
+}
+
+.ep-empty__title {
+  font-family: var(--ep-font-display);
+  font-size: var(--ep-text-heading);
+  color: var(--ep-ink-muted);
+}
+
+/* ---- Definition row (spec lists, stack tables) ---------------------------------------------- */
+
+.ep-defs {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: var(--ep-space-2xs) var(--ep-space-md);
+  font-size: var(--ep-text-small);
+}
+
+.ep-defs dt {
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-label);
+  color: var(--ep-ink-faint);
+  padding-top: 0.28em;
+}
+
+.ep-defs dd {
+  margin: 0;
+  color: var(--ep-ink-muted);
+}
