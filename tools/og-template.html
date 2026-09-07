@@ -5,13 +5,13 @@
     <title>Open Graph card source</title>
     <!--
       Not shipped. tools/make-og.mjs renders this at exactly 1200x630 and writes
-      site/assets/og.png, which is what social cards and link unfurls show.
+      site/assets/og.png, which is what link unfurls show.
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="../design-system/tokens.css" />
     <link rel="stylesheet" href="../design-system/base.css" />
@@ -20,36 +20,54 @@
         width: 1200px;
         height: 630px;
         margin: 0;
+        position: relative;
+        overflow: hidden;
+        background: var(--ep-bg);
+      }
+
+      .art {
+        position: absolute;
+        inset: 0;
+        background-image: url("../site/assets/gen/hero.jpg");
+        background-size: cover;
+        background-position: 50% 45%;
+        opacity: 0.55;
+      }
+
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(115% 90% at 10% 20%, rgba(10, 11, 15, 0.1) 0%, rgba(10, 11, 15, 0.88) 58%, var(--ep-bg) 100%),
+          linear-gradient(to bottom, rgba(10, 11, 15, 0.35), rgba(10, 11, 15, 0.9));
+      }
+
+      .inner {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        padding: 64px 72px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 68px 72px;
-        background: var(--ep-ground);
-        overflow: hidden;
       }
 
-      .rule {
-        height: 6px;
-        background: var(--ep-accent);
-        width: 92px;
+      .glyph {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: linear-gradient(140deg, var(--ep-accent), var(--ep-accent-hot) 55%, var(--ep-accent-deep));
+        box-shadow: 0 0 0 1px rgba(255, 169, 77, 0.35), 0 8px 22px -6px rgba(255, 138, 61, 0.8);
       }
 
       h1 {
+        margin: 26px 0 0;
         font-family: var(--ep-font-display);
-        font-size: 104px;
+        font-size: 78px;
+        font-weight: 800;
         line-height: 0.98;
-        letter-spacing: -0.025em;
-        font-weight: 600;
-        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 144;
-        margin: 34px 0 0;
-      }
-
-      .lede {
-        margin-top: 26px;
-        font-size: 26px;
-        line-height: 1.45;
-        color: var(--ep-ink-muted);
-        max-width: 30ch;
+        letter-spacing: -0.035em;
+        max-width: 17ch;
       }
 
       footer {
@@ -57,52 +75,55 @@
         align-items: flex-end;
         justify-content: space-between;
         gap: 32px;
-        padding-top: 26px;
-        border-top: 1px solid var(--ep-rule);
+        padding-top: 24px;
+        border-top: 1px solid var(--ep-line);
       }
 
       .who {
         font-family: var(--ep-font-display);
-        font-size: 30px;
+        font-size: 27px;
         font-weight: 600;
-        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 48;
-      }
-
-      .meta {
-        font-family: var(--ep-font-mono);
-        font-size: 17px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--ep-warm);
-        text-align: right;
       }
 
       .domain {
         font-family: var(--ep-font-mono);
-        font-size: 17px;
-        color: var(--ep-ink-faint);
+        font-size: 16px;
+        color: var(--ep-ink-3);
         margin-top: 6px;
+      }
+
+      .meta {
+        text-align: right;
+        font-family: var(--ep-font-mono);
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ep-accent);
+        line-height: 1.8;
       }
     </style>
   </head>
-  <body>
-    <div>
-      <div class="rule"></div>
-      <h1>Software that<br />holds up.</h1>
-      <p class="lede">
-        AI tooling, codebase rescue, and backends built to outlast the handover.
-      </p>
-    </div>
 
-    <footer>
+  <body>
+    <div class="art"></div>
+    <div class="scrim"></div>
+
+    <div class="inner">
       <div>
-        <div class="who">Eric Patton</div>
-        <div class="domain">eric-patton.dev</div>
+        <div class="glyph"></div>
+        <h1>I build the tooling agents run on, and <span class="ep-gradient">I fix what they break.</span></h1>
       </div>
-      <div class="meta">
-        Principal software engineer<br />
-        Fifteen years / New Orleans
-      </div>
-    </footer>
+
+      <footer>
+        <div>
+          <div class="who">Eric Patton</div>
+          <div class="domain">eric-patton.dev</div>
+        </div>
+        <div class="meta">
+          Principal software engineer<br />
+          Fifteen years / New Orleans
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

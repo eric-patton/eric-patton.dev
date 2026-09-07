@@ -11,5 +11,4 @@ find "$root/dist" -mindepth 1 -delete
 mkdir -p "$root/dist/design-system"
 cp -r "$root/site/." "$root/dist/"
 cp "$root/design-system/"*.css "$root/dist/design-system/"
-cp -r "$root/prototypes" "$root/dist/prototypes"
 echo "built $(find "$root/dist" -type f | wc -l) files into dist/"

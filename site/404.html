@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Not found - Eric Patton</title>
     <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0a0b0f" />
 
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
@@ -12,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
     <link rel="stylesheet" href="/design-system/tokens.css" />
@@ -26,30 +27,26 @@
         place-items: center;
         padding: var(--ep-space-lg);
         text-align: center;
-      }
-
-      .code {
-        font-family: var(--ep-font-mono);
-        font-size: var(--ep-text-label);
-        letter-spacing: var(--ep-tracking-label);
-        text-transform: uppercase;
-        color: var(--ep-warm);
+        background:
+          radial-gradient(90% 60% at 50% 0%, rgba(255, 169, 77, 0.08), transparent 70%),
+          var(--ep-bg);
       }
 
       h1 {
-        font-family: var(--ep-font-display);
+        margin-top: var(--ep-space-xs);
         font-size: var(--ep-text-title);
-        font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 72;
-        margin-top: var(--ep-space-2xs);
+        letter-spacing: var(--ep-tracking-display);
       }
 
       p {
-        margin-top: var(--ep-space-sm);
-        color: var(--ep-ink-muted);
         max-width: 42ch;
+        margin: var(--ep-space-sm) auto 0;
+        color: var(--ep-ink-2);
       }
 
       .actions {
+        display: flex;
+        justify-content: center;
         margin-top: var(--ep-space-lg);
       }
     </style>
@@ -57,15 +54,15 @@
 
   <body>
     <main>
-      <p class="code">Error 404</p>
-      <h1>That page is not here.</h1>
+      <span class="ep-mono ep-mono--accent">Error 404</span>
+      <h1 class="ep-title">That page is not here.</h1>
       <p>
         It may have been renamed, or it may never have existed. The front page has everything
         anyway; there are not that many pages.
       </p>
-      <p class="actions">
+      <div class="actions">
         <a class="ep-btn ep-btn--primary" href="/">Back to the front page</a>
-      </p>
+      </div>
     </main>
   </body>
 </html>

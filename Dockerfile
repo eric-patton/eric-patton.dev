@@ -7,7 +7,6 @@ RUN rm -f /usr/share/nginx/html/index.html /etc/nginx/conf.d/default.conf
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY site/ /usr/share/nginx/html/
 COPY design-system/*.css /usr/share/nginx/html/design-system/
-COPY prototypes/ /usr/share/nginx/html/prototypes/
 
 # 127.0.0.1 rather than localhost: busybox wget tries ::1 first, and the answer to a missing
 # IPv6 listener is a confusing "unhealthy" rather than a useful error.

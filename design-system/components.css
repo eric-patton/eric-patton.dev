@@ -1,196 +1,332 @@
 /*
- * Editorial Technical: the component layer.
+ * The component layer: the pieces shared between eric-patton.dev and RequestDesk.
  *
- * These are the pieces shared between the site and RequestDesk. Everything is a plain class on
- * a plain element, no framework, so the same CSS drops into an Angular template unchanged.
+ * Every component is a plain class on a plain element, no framework, so the same CSS drops into
+ * an Angular template unchanged.
  *
- * Naming: .ep-<component>, modifiers as .ep-<component>--<variant>, internals as
- * .ep-<component>__<part>. Boring on purpose; a design system nobody can guess the class name
- * for gets abandoned.
+ * Naming is .ep-<component>, modifiers .ep-<component>--<variant>, internals
+ * .ep-<component>__<part>. Boring on purpose: a design system whose class names nobody can
+ * guess gets abandoned.
  */
 
-/* ---- Button ----------------------------------------------------------------------------- */
+/* ---- Button ------------------------------------------------------------------------------- */
 
 .ep-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--ep-space-2xs);
-  padding: 0.65rem 1.15rem;
+  padding: 0.625rem 1.125rem;
   border: 1px solid transparent;
-  border-radius: var(--ep-radius-sm);
+  border-radius: var(--ep-radius-pill);
   background: transparent;
+  color: var(--ep-ink);
   font-size: var(--ep-text-small);
-  font-weight: var(--ep-weight-medium);
+  font-weight: var(--ep-weight-semibold);
   line-height: 1.2;
-  letter-spacing: var(--ep-tracking-tight);
+  letter-spacing: -0.005em;
   text-decoration: none;
   white-space: nowrap;
   transition:
-    background-color var(--ep-duration-fast) var(--ep-ease),
-    border-color var(--ep-duration-fast) var(--ep-ease),
-    color var(--ep-duration-fast) var(--ep-ease),
-    transform var(--ep-duration-fast) var(--ep-ease);
-}
-
-.ep-btn:active {
-  transform: translateY(1px);
+    transform var(--ep-duration-fast) var(--ep-ease),
+    box-shadow var(--ep-duration) var(--ep-ease),
+    background-color var(--ep-duration) var(--ep-ease),
+    border-color var(--ep-duration) var(--ep-ease),
+    color var(--ep-duration) var(--ep-ease);
 }
 
 .ep-btn[disabled],
 .ep-btn[aria-disabled="true"] {
-  opacity: 0.5;
+  opacity: 0.45;
   pointer-events: none;
 }
 
 .ep-btn--primary {
-  background: var(--ep-accent);
-  border-color: var(--ep-accent);
+  background: linear-gradient(140deg, var(--ep-accent), var(--ep-accent-hot));
   color: var(--ep-on-accent);
+  box-shadow: var(--ep-glow-accent);
 }
 
 .ep-btn--primary:hover {
-  background: var(--ep-accent-strong);
-  border-color: var(--ep-accent-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -12px rgba(255, 138, 61, 1);
   color: var(--ep-on-accent);
 }
 
-.ep-btn--secondary {
-  background: var(--ep-surface);
-  border-color: var(--ep-rule-strong);
-  color: var(--ep-ink);
-}
-
-.ep-btn--secondary:hover {
-  border-color: var(--ep-ink-faint);
-  color: var(--ep-ink);
-}
-
 .ep-btn--ghost {
-  color: var(--ep-ink-muted);
+  border-color: var(--ep-line-strong);
 }
 
 .ep-btn--ghost:hover {
-  background: var(--ep-ground-sunk);
+  transform: translateY(-2px);
+  border-color: var(--ep-ink-3);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ep-ink);
+}
+
+.ep-btn--subtle {
+  background: var(--ep-surface-2);
+  color: var(--ep-ink-2);
+}
+
+.ep-btn--subtle:hover {
+  background: var(--ep-line);
   color: var(--ep-ink);
 }
 
 .ep-btn--danger {
   background: var(--ep-critical);
-  border-color: var(--ep-critical);
-  color: #fff;
+  color: #2a0f0c;
 }
 
 .ep-btn--sm {
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.8rem;
   font-size: var(--ep-text-fine);
 }
 
 .ep-btn--lg {
-  padding: 0.85rem 1.6rem;
+  padding: 0.8rem 1.5rem;
   font-size: var(--ep-text-body);
 }
 
-/* ---- Text link with a moving arrow ------------------------------------------------------ */
+/* ---- Status pill (a link that reports live state) ----------------------------------------- */
 
-.ep-link {
+.ep-pill {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.4em;
-  font-weight: var(--ep-weight-medium);
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.625rem;
+  border: 1px solid var(--ep-line-strong);
+  border-radius: var(--ep-radius-pill);
+  background: rgba(21, 24, 36, 0.72);
+  color: var(--ep-ink-2);
+  font-size: var(--ep-text-small);
   text-decoration: none;
-  border-bottom: 1px solid var(--ep-accent-line);
-  padding-bottom: 1px;
-  transition: border-color var(--ep-duration-fast) var(--ep-ease);
-}
-
-.ep-link:hover {
-  border-bottom-color: var(--ep-accent);
-}
-
-.ep-link__arrow {
-  transition: transform var(--ep-duration) var(--ep-ease-out);
-}
-
-.ep-link:hover .ep-link__arrow {
-  transform: translateX(3px);
-}
-
-/* ---- Card -------------------------------------------------------------------------------- */
-
-.ep-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--ep-space-xs);
-  padding: var(--ep-space-md);
-  background: var(--ep-surface);
-  border: 1px solid var(--ep-rule);
-  border-radius: var(--ep-radius-md);
   transition:
     border-color var(--ep-duration) var(--ep-ease),
-    box-shadow var(--ep-duration) var(--ep-ease),
+    color var(--ep-duration) var(--ep-ease),
     transform var(--ep-duration) var(--ep-ease);
 }
 
-.ep-card--interactive:hover {
-  border-color: var(--ep-rule-strong);
-  box-shadow: var(--ep-shadow-md);
+.ep-pill:hover {
+  border-color: var(--ep-accent);
+  color: var(--ep-ink);
   transform: translateY(-2px);
 }
 
-/* Stretched link: the whole card is the hit area, but only the title is in the tab order and
-   read out by a screen reader, so the accessible name stays the title rather than the card. */
-.ep-card__link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+/* The dot carries state at a glance; the words next to it carry the same state for anyone who
+   cannot separate these hues. Never ship the dot on its own. */
+.ep-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ep-lime);
+  box-shadow: 0 0 0 4px rgba(166, 227, 77, 0.16);
+  animation: ep-pulse 2.6s var(--ep-ease) infinite;
 }
 
-.ep-card__title {
-  font-size: var(--ep-text-subheading);
-  font-weight: var(--ep-weight-semibold);
-  letter-spacing: var(--ep-tracking-tight);
+@keyframes ep-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
-.ep-card__title a {
-  color: inherit;
-  text-decoration: none;
+@media (prefers-reduced-motion: reduce) {
+  .ep-dot {
+    animation: none;
+  }
 }
 
-.ep-card__body {
-  font-size: var(--ep-text-small);
-  line-height: var(--ep-leading-relaxed);
-  color: var(--ep-ink-muted);
-  text-wrap: pretty;
-}
-
-.ep-card__footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--ep-space-2xs);
-  margin-top: auto;
-  padding-top: var(--ep-space-xs);
-}
-
-/* ---- Tag ---------------------------------------------------------------------------------- */
+/* ---- Tag ------------------------------------------------------------------------------------ */
 
 .ep-tag {
   display: inline-flex;
   align-items: center;
   padding: 0.2rem 0.5rem;
-  border: 1px solid var(--ep-rule);
+  border: 1px solid var(--ep-line);
   border-radius: var(--ep-radius-xs);
-  background: var(--ep-ground-sunk);
+  background: var(--ep-bg-raised);
   font-family: var(--ep-font-mono);
   font-size: var(--ep-text-label);
-  color: var(--ep-ink-muted);
+  letter-spacing: 0.06em;
+  color: var(--ep-ink-3);
   white-space: nowrap;
 }
 
-/* ---- Status chip (RequestDesk) ----------------------------------------------------------- */
+/* ---- Panel and card -------------------------------------------------------------------------- */
+
+.ep-panel {
+  border: 1px solid var(--ep-line);
+  border-radius: var(--ep-radius-md);
+  background: linear-gradient(170deg, var(--ep-surface), var(--ep-bg-raised));
+}
+
+.ep-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ep-line);
+  border-radius: var(--ep-radius-md);
+  background: linear-gradient(170deg, var(--ep-surface), var(--ep-bg-raised));
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform var(--ep-duration) var(--ep-ease-out),
+    border-color var(--ep-duration) var(--ep-ease),
+    box-shadow var(--ep-duration) var(--ep-ease);
+}
+
+.ep-card--interactive:hover {
+  transform: translateY(-6px);
+  border-color: var(--ep-line-strong);
+  box-shadow: var(--ep-shadow-lg);
+}
+
+.ep-card__art {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--ep-bg-raised);
+}
+
+.ep-card__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--ep-duration-slow) var(--ep-ease-out);
+}
+
+.ep-card--interactive:hover .ep-card__art img {
+  transform: scale(1.06);
+}
+
+/* The scrim is what lets a mono label sit on top of arbitrary artwork and stay readable. */
+.ep-card__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 45%, rgba(16, 18, 25, 0.88) 100%);
+}
+
+.ep-card__art-label {
+  position: absolute;
+  left: var(--ep-space-xs);
+  bottom: var(--ep-space-2xs);
+  z-index: 2;
+  color: var(--ep-ink-2);
+}
+
+.ep-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--ep-space-sm) var(--ep-space-md) var(--ep-space-md);
+}
+
+.ep-card__title {
+  font-family: var(--ep-font-display);
+  font-size: 1.3rem;
+  font-weight: var(--ep-weight-bold);
+  letter-spacing: var(--ep-tracking-tight);
+}
+
+.ep-card__body p {
+  margin-top: var(--ep-space-2xs);
+  font-size: var(--ep-text-small);
+  line-height: var(--ep-leading-normal);
+  color: var(--ep-ink-2);
+  text-wrap: pretty;
+}
+
+.ep-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ep-space-xs);
+  margin-top: auto;
+  padding-top: var(--ep-space-sm);
+}
+
+.ep-card__go {
+  color: var(--ep-accent);
+  font-size: var(--ep-text-small);
+  font-weight: var(--ep-weight-semibold);
+  transition: transform var(--ep-duration) var(--ep-ease);
+  display: inline-block;
+}
+
+.ep-card--interactive:hover .ep-card__go {
+  transform: translateX(4px);
+}
+
+/* ---- Browser frame ----------------------------------------------------------------------------- */
+/* A flat PNG of an application reads as a picture. The same PNG inside a chrome bar reads as a
+   running program, which is the whole point of putting it on the page. */
+
+.ep-frame {
+  overflow: hidden;
+  border: 1px solid var(--ep-line-strong);
+  border-radius: 12px;
+  background: var(--ep-surface-2);
+  box-shadow: var(--ep-shadow-xl);
+}
+
+.ep-frame__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--ep-line);
+  background: var(--ep-surface);
+}
+
+.ep-frame__bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3a4055;
+}
+
+.ep-frame__url {
+  flex: 1;
+  margin-left: 0.6rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 5px;
+  background: var(--ep-bg-raised);
+  font-family: var(--ep-font-mono);
+  font-size: 0.66rem;
+  color: var(--ep-ink-3);
+}
+
+.ep-frame img {
+  width: 100%;
+}
+
+/* ---- Metric ------------------------------------------------------------------------------------- */
+
+.ep-metric__value {
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-weight-black);
+  font-size: 1.9rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.ep-metric__value--accent {
+  color: var(--ep-accent);
+}
+
+.ep-metric__label {
+  margin-top: var(--ep-space-3xs);
+}
+
+/* ---- Status chip (RequestDesk) --------------------------------------------------------------- */
 
 .ep-chip {
   display: inline-flex;
@@ -198,23 +334,21 @@
   gap: 0.4em;
   padding: 0.22rem 0.6rem;
   border-radius: var(--ep-radius-pill);
+  background: var(--ep-surface-2);
+  color: var(--ep-ink-2);
   font-size: var(--ep-text-label);
   font-weight: var(--ep-weight-semibold);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
-  background: var(--ep-ground-sunk);
-  color: var(--ep-ink-muted);
 }
 
-/* The dot carries the colour at a glance; the label carries it for anyone who cannot separate
-   these hues. Never ship the dot without the text. */
 .ep-chip::before {
   content: "";
   width: 0.45em;
   height: 0.45em;
+  flex: none;
   border-radius: 50%;
   background: currentColor;
-  flex: none;
 }
 
 .ep-chip--new {
@@ -246,29 +380,16 @@
   color: var(--ep-status-cancelled-ink);
 }
 
-/* A live/health chip with a slow pulse, used for the demo status on the site. */
 .ep-chip--live {
-  background: var(--ep-positive-soft);
+  background: var(--ep-positive-bg);
   color: var(--ep-positive);
 }
 
 .ep-chip--live::before {
-  animation: ep-pulse 2.4s var(--ep-ease) infinite;
+  animation: ep-pulse 2.6s var(--ep-ease) infinite;
 }
 
-@keyframes ep-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.8);
-  }
-}
-
-/* ---- Priority badge (RequestDesk) --------------------------------------------------------- */
+/* ---- Priority (RequestDesk) --------------------------------------------------------------------- */
 
 .ep-priority {
   display: inline-flex;
@@ -277,8 +398,8 @@
   font-family: var(--ep-font-mono);
   font-size: var(--ep-text-label);
   font-weight: var(--ep-weight-medium);
-  text-transform: uppercase;
   letter-spacing: var(--ep-tracking-label);
+  text-transform: uppercase;
   color: var(--ep-priority-normal);
 }
 
@@ -293,7 +414,7 @@
   font-weight: var(--ep-weight-bold);
 }
 
-/* ---- Form field --------------------------------------------------------------------------- */
+/* ---- Form field ------------------------------------------------------------------------------------ */
 
 .ep-field {
   display: flex;
@@ -304,15 +425,16 @@
 .ep-field__label {
   font-size: var(--ep-text-fine);
   font-weight: var(--ep-weight-medium);
-  color: var(--ep-ink-muted);
+  color: var(--ep-ink-2);
 }
 
 .ep-field__control {
   width: 100%;
   padding: 0.6rem 0.75rem;
-  background: var(--ep-surface);
-  border: 1px solid var(--ep-rule-strong);
+  border: 1px solid var(--ep-line-strong);
   border-radius: var(--ep-radius-sm);
+  background: var(--ep-bg-raised);
+  color: var(--ep-ink);
   font-size: var(--ep-text-small);
   transition:
     border-color var(--ep-duration-fast) var(--ep-ease),
@@ -320,16 +442,16 @@
 }
 
 .ep-field__control::placeholder {
-  color: var(--ep-ink-faint);
+  color: var(--ep-ink-3);
 }
 
 .ep-field__control:hover {
-  border-color: var(--ep-ink-faint);
+  border-color: var(--ep-ink-3);
 }
 
 .ep-field__hint {
   font-size: var(--ep-text-label);
-  color: var(--ep-ink-faint);
+  color: var(--ep-ink-3);
 }
 
 .ep-field__error {
@@ -339,14 +461,14 @@
 
 .ep-field--invalid .ep-field__control {
   border-color: var(--ep-critical);
-  background: var(--ep-critical-soft);
+  background: var(--ep-critical-bg);
 }
 
-/* ---- Data table (RequestDesk) ------------------------------------------------------------- */
+/* ---- Data table (RequestDesk) ------------------------------------------------------------------------ */
 
 .ep-table-wrap {
   overflow-x: auto;
-  border: 1px solid var(--ep-rule);
+  border: 1px solid var(--ep-line);
   border-radius: var(--ep-radius-md);
   background: var(--ep-surface);
 }
@@ -361,21 +483,21 @@
   top: 0;
   z-index: 1;
   padding: var(--ep-space-2xs) var(--ep-space-sm);
-  background: var(--ep-ground-sunk);
-  border-bottom: 1px solid var(--ep-rule);
+  border-bottom: 1px solid var(--ep-line);
+  background: var(--ep-surface-2);
   font-family: var(--ep-font-mono);
   font-size: var(--ep-text-label);
   font-weight: var(--ep-weight-medium);
-  text-transform: uppercase;
   letter-spacing: var(--ep-tracking-label);
+  text-transform: uppercase;
   text-align: left;
-  color: var(--ep-ink-muted);
+  color: var(--ep-ink-3);
   white-space: nowrap;
 }
 
 .ep-table td {
   padding: var(--ep-space-xs) var(--ep-space-sm);
-  border-bottom: 1px solid var(--ep-rule);
+  border-bottom: 1px solid var(--ep-line);
   vertical-align: middle;
 }
 
@@ -388,16 +510,16 @@
 }
 
 .ep-table tbody tr:hover {
-  background: var(--ep-ground-sunk);
+  background: var(--ep-surface-2);
 }
 
-/* Reference numbers, dates and counts line up in a column only if the digits are the same
-   width. Tabular numerals are the whole reason this class exists. */
+/* Reference numbers and dates only line up in a column if the digits are the same width.
+   Tabular numerals are the entire reason this class exists. */
 .ep-table__ref {
   font-family: var(--ep-font-mono);
   font-size: var(--ep-text-fine);
   font-variant-numeric: tabular-nums;
-  color: var(--ep-ink-muted);
+  color: var(--ep-ink-3);
   white-space: nowrap;
 }
 
@@ -406,18 +528,30 @@
   color: var(--ep-ink);
 }
 
-/* ---- Section header ----------------------------------------------------------------------- */
+/* ---- Definition list ---------------------------------------------------------------------------------- */
 
-.ep-section-head {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ep-space-2xs);
-  padding-bottom: var(--ep-space-md);
-  margin-bottom: var(--ep-space-lg);
-  border-bottom: 1px solid var(--ep-rule);
+.ep-defs {
+  display: grid;
+  grid-template-columns: minmax(5rem, max-content) 1fr;
+  gap: var(--ep-space-2xs) var(--ep-space-md);
+  font-size: var(--ep-text-small);
 }
 
-/* ---- Empty state ---------------------------------------------------------------------------- */
+.ep-defs dt {
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-text-label);
+  letter-spacing: var(--ep-tracking-label);
+  text-transform: uppercase;
+  color: var(--ep-ink-3);
+  padding-top: 0.28em;
+}
+
+.ep-defs dd {
+  margin: 0;
+  color: var(--ep-ink-2);
+}
+
+/* ---- Empty state --------------------------------------------------------------------------------------- */
 
 .ep-empty {
   display: flex;
@@ -426,34 +560,11 @@
   gap: var(--ep-space-2xs);
   padding: var(--ep-space-2xl) var(--ep-space-md);
   text-align: center;
-  color: var(--ep-ink-faint);
+  color: var(--ep-ink-3);
 }
 
 .ep-empty__title {
   font-family: var(--ep-font-display);
   font-size: var(--ep-text-heading);
-  color: var(--ep-ink-muted);
-}
-
-/* ---- Definition row (spec lists, stack tables) ---------------------------------------------- */
-
-.ep-defs {
-  display: grid;
-  grid-template-columns: minmax(7rem, max-content) 1fr;
-  gap: var(--ep-space-2xs) var(--ep-space-md);
-  font-size: var(--ep-text-small);
-}
-
-.ep-defs dt {
-  font-family: var(--ep-font-mono);
-  font-size: var(--ep-text-label);
-  text-transform: uppercase;
-  letter-spacing: var(--ep-tracking-label);
-  color: var(--ep-ink-faint);
-  padding-top: 0.28em;
-}
-
-.ep-defs dd {
-  margin: 0;
-  color: var(--ep-ink-muted);
+  color: var(--ep-ink-2);
 }

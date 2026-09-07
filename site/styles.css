@@ -1,19 +1,55 @@
 /*
- * eric-patton.dev: page layout.
+ * eric-patton.dev: page layout only.
  *
- * Everything reusable lives in design-system/. This file only knows how this one page is
- * arranged. If a rule here starts looking like a component, move it up into the system.
+ * Everything reusable lives in design-system/, because RequestDesk imports those three files
+ * unchanged. If a rule in here starts to look like a component, move it up.
  */
 
-/* ---- Masthead ------------------------------------------------------------------------- */
+/* ---- Brand mark --------------------------------------------------------------------------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ep-space-2xs);
+  color: var(--ep-ink);
+  text-decoration: none;
+}
+
+.brand b {
+  font-family: var(--ep-font-display);
+  font-size: 1rem;
+  font-weight: var(--ep-weight-bold);
+  letter-spacing: var(--ep-tracking-tight);
+}
+
+.brand__glyph {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 7px;
+  background: linear-gradient(140deg, var(--ep-accent), var(--ep-accent-hot) 55%, var(--ep-accent-deep));
+  box-shadow:
+    0 0 0 1px rgba(255, 169, 77, 0.35),
+    0 6px 18px -6px rgba(255, 138, 61, 0.75);
+}
+
+/* ---- Masthead ------------------------------------------------------------------------------ */
 
 .masthead {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: color-mix(in srgb, var(--ep-ground) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--ep-rule);
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: rgba(10, 11, 15, 0.66);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--ep-duration) var(--ep-ease),
+    background-color var(--ep-duration) var(--ep-ease);
+}
+
+.masthead.is-stuck {
+  background: rgba(10, 11, 15, 0.9);
+  border-bottom-color: var(--ep-line);
 }
 
 .masthead__inner {
@@ -21,390 +57,274 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--ep-space-md);
-  min-height: 4.25rem;
+  padding-block: 0.875rem;
 }
 
-.masthead__mark {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  text-decoration: none;
-  color: var(--ep-ink);
-}
-
-.masthead__name {
-  font-family: var(--ep-font-display);
-  font-size: 1.15rem;
-  font-weight: var(--ep-weight-semibold);
-  letter-spacing: var(--ep-tracking-tight);
-  line-height: 1.1;
-  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 24;
-}
-
-.masthead__role {
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--ep-ink-faint);
-}
-
-.masthead__nav {
+.masthead__links {
   display: flex;
   align-items: center;
   gap: var(--ep-space-md);
   font-size: var(--ep-text-small);
 }
 
-.masthead__nav a {
-  color: var(--ep-ink-muted);
+.masthead__links > a:not(.ep-btn) {
+  color: var(--ep-ink-2);
   text-decoration: none;
-  padding-block: 0.25rem;
-  border-bottom: 1px solid transparent;
-  transition:
-    color var(--ep-duration-fast) var(--ep-ease),
-    border-color var(--ep-duration-fast) var(--ep-ease);
+  transition: color var(--ep-duration-fast) var(--ep-ease);
 }
 
-.masthead__nav a:hover {
+.masthead__links > a:not(.ep-btn):hover {
   color: var(--ep-ink);
-  border-bottom-color: var(--ep-warm);
 }
 
-/* The role line and the first two links are the first things to go on a narrow screen. The
-   GitHub link stays, because it is the only one that leaves the page. */
-@media (max-width: 34rem) {
-  .masthead__role {
-    display: none;
-  }
-
-  .masthead__nav a:not(:last-child) {
+/* On a narrow screen the section anchors go and the GitHub button stays, because it is the only
+   link that leaves the page. */
+@media (max-width: 38rem) {
+  .masthead__links > a:not(.ep-btn) {
     display: none;
   }
 }
 
-/* ---- Hero ------------------------------------------------------------------------------ */
+/* ---- Hero ----------------------------------------------------------------------------------- */
 
 .hero {
-  padding-top: clamp(3.5rem, 2rem + 7vw, 7.5rem);
-  padding-bottom: var(--ep-space-section);
-  border-bottom: 1px solid var(--ep-rule);
+  position: relative;
+  padding: 11rem 0 4.5rem;
+  overflow: hidden;
 }
 
-/* The headline column is deliberately the wider one. The panel is a sidebar in the newspaper
-   sense: it sits beside the lead, it does not compete with it. */
-.hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  gap: var(--ep-space-2xl);
-  align-items: start;
+.hero__bg {
+  position: absolute;
+  inset: -12% -5% auto -5%;
+  height: 116%;
+  background-image: url("/assets/gen/hero.jpg");
+  background-size: cover;
+  background-position: 50% 42%;
+  opacity: 0.5;
+  will-change: transform;
 }
 
-@media (max-width: 62rem) {
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--ep-space-xl);
-  }
+/* Two scrims: a radial one to sink the top-left where the headline sits, and a linear one to
+   land the image on the page background before the content below starts. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 85% at 12% 18%, rgba(10, 11, 15, 0.15) 0%, rgba(10, 11, 15, 0.86) 58%, var(--ep-bg) 100%),
+    linear-gradient(to bottom, rgba(10, 11, 15, 0.5) 0%, rgba(10, 11, 15, 0.2) 40%, var(--ep-bg) 96%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
 }
 
 .hero__headline {
-  margin-top: var(--ep-space-sm);
+  margin-top: var(--ep-space-md);
+  max-width: 16ch;
 }
 
 .hero__lede {
   margin-top: var(--ep-space-md);
-  max-width: 54ch;
+  max-width: 56ch;
 }
 
-.hero__actions {
+.actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--ep-space-xs);
   margin-top: var(--ep-space-lg);
 }
 
-.hero__facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--ep-space-md);
-  margin: var(--ep-space-2xl) 0 0;
-  padding-top: var(--ep-space-md);
-  border-top: 1px solid var(--ep-rule);
-}
-
-.hero__facts dt {
-  font-family: var(--ep-font-mono);
-  font-size: var(--ep-text-label);
-  text-transform: uppercase;
-  letter-spacing: var(--ep-tracking-label);
-  color: var(--ep-warm);
-  margin-bottom: var(--ep-space-3xs);
-}
-
-.hero__facts dd {
-  margin: 0;
-  font-size: var(--ep-text-small);
-  line-height: var(--ep-leading-normal);
-  color: var(--ep-ink-muted);
-  max-width: 34ch;
-}
-
-/* ---- Live status panel ------------------------------------------------------------------ */
-
-.status-panel {
-  padding: var(--ep-space-md);
-  background: var(--ep-surface);
-  border: 1px solid var(--ep-rule);
-  border-radius: var(--ep-radius-md);
-  box-shadow: var(--ep-shadow-sm);
-  /* Nudged down so its top rule sits against the headline's cap height rather than above it. */
-  margin-top: var(--ep-space-2xs);
-}
-
-.status-panel__head {
+.stack-strip {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--ep-space-2xs);
-  margin-top: var(--ep-space-xs);
-}
-
-.status-panel__name {
-  font-family: var(--ep-font-display);
-  font-size: var(--ep-text-heading);
-  font-weight: var(--ep-weight-semibold);
-  letter-spacing: var(--ep-tracking-tight);
-  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 48;
-}
-
-.status-panel__blurb {
-  margin-top: var(--ep-space-2xs);
+  gap: var(--ep-space-xs) var(--ep-space-lg);
+  margin-top: var(--ep-space-2xl);
+  padding-top: var(--ep-space-md);
+  border-top: 1px solid var(--ep-line);
   font-size: var(--ep-text-small);
-  line-height: var(--ep-leading-relaxed);
-  color: var(--ep-ink-muted);
-  text-wrap: pretty;
+  font-weight: var(--ep-weight-medium);
+  color: var(--ep-ink-2);
 }
 
-.status-panel__defs {
-  margin-top: var(--ep-space-md);
-  padding-top: var(--ep-space-sm);
-  border-top: 1px solid var(--ep-rule);
-  grid-template-columns: minmax(3.5rem, max-content) 1fr;
-  gap: var(--ep-space-2xs) var(--ep-space-sm);
+/* ---- Sections -------------------------------------------------------------------------------- */
+
+/* The stack strip already reads as a divider, so the first section does not need a full
+   section's worth of air above it as well. */
+#work {
+  padding-top: clamp(3.5rem, 6vw, 5.5rem);
 }
 
-.status-panel__go {
-  margin-top: var(--ep-space-md);
-  font-size: var(--ep-text-small);
-}
-
-/* ---- Sections -------------------------------------------------------------------------- */
-
-.section {
-  padding-block: var(--ep-space-section);
-}
-
-.section--sunk {
-  background: var(--ep-ground-sunk);
-  border-block: 1px solid var(--ep-rule);
-}
-
-/* ---- Services -------------------------------------------------------------------------- */
-
-.services {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.service {
-  display: grid;
-  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, auto);
-  align-items: start;
-  gap: var(--ep-space-md);
-  padding-block: var(--ep-space-lg);
-  border-bottom: 1px solid var(--ep-rule);
-}
-
-.service:first-child {
-  padding-top: 0;
-}
-
-.service:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.service__index {
-  font-size: var(--ep-text-body);
-  font-weight: var(--ep-weight-semibold);
-  color: var(--ep-warm);
-  padding-top: 0.15em;
-}
-
-.service__body p {
-  margin-top: var(--ep-space-2xs);
-  max-width: var(--ep-measure-prose);
-  color: var(--ep-ink-muted);
-  line-height: var(--ep-leading-relaxed);
-  text-wrap: pretty;
-}
-
-.service .ep-tag {
-  justify-self: end;
-  margin-top: 0.35em;
-}
-
-@media (max-width: 52rem) {
-  .service {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-  }
-
-  .service .ep-tag {
-    grid-column: 2;
-    justify-self: start;
-    margin-top: var(--ep-space-2xs);
-  }
-}
-
-/* ---- Featured project ------------------------------------------------------------------ */
-
-.feature {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: var(--ep-space-2xl);
-  align-items: start;
-  padding-bottom: var(--ep-space-2xl);
+.section-head {
   margin-bottom: var(--ep-space-2xl);
-  border-bottom: 1px solid var(--ep-rule);
+  max-width: 60ch;
 }
 
-.feature__chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--ep-space-2xs);
+.section-head .ep-mono {
+  display: block;
+  margin-bottom: var(--ep-space-sm);
 }
 
-.feature__title {
-  margin-top: var(--ep-space-xs);
-}
-
-.feature .ep-prose {
+.section-head .ep-lede {
   margin-top: var(--ep-space-sm);
+  font-size: var(--ep-text-body);
 }
 
-.feature__defs {
-  margin: var(--ep-space-lg) 0 0;
-  padding-top: var(--ep-space-md);
-  border-top: 1px solid var(--ep-rule);
-}
+/* ---- Showcase ---------------------------------------------------------------------------------- */
 
-.feature__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ep-space-xs);
-  margin-top: var(--ep-space-lg);
-}
-
-/* The screenshot sits slightly proud of the text column and is cropped from the bottom, so it
-   reads as a window onto a running app rather than as a boxed-in picture of one. */
-.feature__shot {
-  margin: 0;
-  border: 1px solid var(--ep-rule-strong);
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.75rem, 4vw, 3.25rem);
+  border: 1px solid var(--ep-line);
   border-radius: var(--ep-radius-lg);
-  background: var(--ep-surface);
-  box-shadow: var(--ep-shadow-lg);
+  background:
+    radial-gradient(90% 130% at 88% 0%, rgba(143, 184, 255, 0.1), transparent 62%),
+    linear-gradient(160deg, var(--ep-surface), var(--ep-bg-raised));
   overflow: hidden;
 }
 
-.feature__shot img {
-  width: 100%;
-  border-bottom: 1px solid var(--ep-rule);
+.showcase__title {
+  margin-top: var(--ep-space-2xs);
 }
 
-.feature__shot figcaption {
-  padding: var(--ep-space-2xs) var(--ep-space-sm);
-  font-size: var(--ep-text-label);
-  color: var(--ep-ink-faint);
-  background: var(--ep-ground-sunk);
+.showcase .ep-prose {
+  margin-top: var(--ep-space-sm);
 }
 
-@media (max-width: 60rem) {
-  .feature {
+/* Tilted just enough to suggest a screen sitting in space, and straightening on hover so the
+   detail becomes readable if somebody actually wants to look at it. */
+.showcase__frame {
+  transform: perspective(1600px) rotateY(-7deg) rotateX(2deg);
+  transition: transform var(--ep-duration-slow) var(--ep-ease-out);
+}
+
+.showcase:hover .showcase__frame {
+  transform: perspective(1600px) rotateY(-3deg) rotateX(1deg) translateY(-6px);
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ep-space-md) var(--ep-space-lg);
+  margin-top: var(--ep-space-lg);
+}
+
+@media (max-width: 62rem) {
+  .showcase {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--ep-space-xl);
+  }
+
+  .showcase__frame,
+  .showcase:hover .showcase__frame {
+    transform: none;
   }
 }
 
-/* ---- Work grid ------------------------------------------------------------------------- */
+/* ---- Work grid ------------------------------------------------------------------------------------ */
 
 .work-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-  gap: var(--ep-space-md);
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  gap: var(--ep-space-sm);
+  margin-top: var(--ep-space-sm);
 }
 
-/* ---- Teaching -------------------------------------------------------------------------- */
+/* ---- Numbers band ---------------------------------------------------------------------------------- */
 
-.teaching {
+.band {
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  border-block: 1px solid var(--ep-line);
+  background:
+    radial-gradient(70% 140% at 50% 0%, rgba(255, 169, 77, 0.07), transparent 70%),
+    var(--ep-bg-raised);
+}
+
+.band__row {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  gap: var(--ep-space-2xl);
-  align-items: start;
-}
-
-.teaching__defs {
-  padding: var(--ep-space-md);
-  background: var(--ep-surface);
-  border: 1px solid var(--ep-rule);
-  border-radius: var(--ep-radius-md);
-}
-
-@media (max-width: 52rem) {
-  .teaching {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--ep-space-lg);
-  }
-}
-
-/* ---- Approach -------------------------------------------------------------------------- */
-
-.approach {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: var(--ep-space-lg);
 }
 
-.approach__item {
-  padding-top: var(--ep-space-sm);
-  border-top: 2px solid var(--ep-warm);
+.band__value {
+  font-size: clamp(2.4rem, 4.6vw, 3.75rem);
+  letter-spacing: -0.04em;
 }
 
-.approach__item h3 {
-  margin-bottom: var(--ep-space-2xs);
+/* ---- Services -------------------------------------------------------------------------------------- */
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--ep-space-sm);
 }
 
-/* ---- Footer ---------------------------------------------------------------------------- */
+.service {
+  position: relative;
+  overflow: hidden;
+  padding: var(--ep-space-md) var(--ep-space-md) var(--ep-space-lg);
+  border: 1px solid var(--ep-line);
+  border-radius: var(--ep-radius-md);
+  background: linear-gradient(170deg, var(--ep-surface), var(--ep-bg-raised));
+  transition:
+    border-color var(--ep-duration) var(--ep-ease),
+    transform var(--ep-duration) var(--ep-ease);
+}
+
+.service:hover {
+  border-color: var(--ep-line-strong);
+  transform: translateY(-4px);
+}
+
+/* A hairline of accent that wipes in on hover. Cheaper than a glow and it does not smear the
+   text underneath. */
+.service::before {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ep-accent), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--ep-duration) var(--ep-ease);
+}
+
+.service:hover::before {
+  opacity: 1;
+}
+
+.service__no {
+  display: block;
+}
+
+.service h3 {
+  margin-top: var(--ep-space-xs);
+}
+
+.service p {
+  margin-top: var(--ep-space-2xs);
+  font-size: var(--ep-text-small);
+  line-height: var(--ep-leading-relaxed);
+  color: var(--ep-ink-2);
+  text-wrap: pretty;
+}
+
+/* ---- Footer ------------------------------------------------------------------------------------------ */
 
 .footer {
   padding-block: var(--ep-space-xl);
-  border-top: 1px solid var(--ep-rule);
+  border-top: 1px solid var(--ep-line);
 }
 
-.footer__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-  gap: var(--ep-space-md) var(--ep-space-lg);
-  align-items: start;
-}
-
-.footer__name {
-  font-family: var(--ep-font-display);
-  font-size: var(--ep-text-subheading);
-  font-weight: var(--ep-weight-semibold);
-  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 24;
+.footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ep-space-md) var(--ep-space-xl);
 }
 
 .footer__links {
@@ -415,29 +335,19 @@
 }
 
 .footer__links a {
-  color: var(--ep-ink-muted);
+  color: var(--ep-ink-2);
   text-decoration: none;
-  border-bottom: 1px solid var(--ep-rule-strong);
-  padding-bottom: 1px;
+  transition: color var(--ep-duration-fast) var(--ep-ease);
 }
 
 .footer__links a:hover {
-  color: var(--ep-ink);
-  border-bottom-color: var(--ep-warm);
+  color: var(--ep-accent);
 }
 
 .footer__colophon {
-  grid-column: 1 / -1;
-  padding-top: var(--ep-space-md);
-  border-top: 1px solid var(--ep-rule);
-  max-width: 68ch;
-  font-size: var(--ep-text-label);
-  line-height: var(--ep-leading-normal);
-  color: var(--ep-ink-faint);
-}
-
-@media (max-width: 40rem) {
-  .footer__inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  max-width: 70ch;
+  margin-top: var(--ep-space-md);
+  font-size: var(--ep-text-fine);
+  line-height: var(--ep-leading-relaxed);
+  color: var(--ep-ink-3);
 }

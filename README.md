@@ -23,19 +23,32 @@ is the same arrangement that runs the RequestDesk demo on a neighbouring hostnam
 
 ## The design system
 
-The direction is **editorial technical**: a warm off-white ground rather than grey, deep ink
-blue as the single accent, and rust used sparingly for section indices and mono labels. Three
-type voices, each with a job:
+The direction is **imagery-led and dark**. A near-black ground with a slight blue cast, amber as
+the single accent (warm against a cold ground, and the colour the cover art is lit with), and two
+supporting hues: ice blue as the cool counterweight in the headline gradient, lime for anything
+that means live or passing.
 
-- **Fraunces** for display headlines, the only place with personality.
-- **Inter** for working UI, chosen to stay legible in a dense table.
-- **IBM Plex Mono** for technical detail: counts, stack names, indices, status codes.
+Three type voices, each with a job:
+
+- **Bricolage Grotesque** for display headlines, the only place with personality.
+- **Inter** for working UI, legible at 13px in a dense table row.
+- **JetBrains Mono** for technical detail: counts, stack names, labels, status codes.
+
+It is dark only, deliberately. A half-built light theme is worse than none, and committing to one
+ground lets the accent, the shadows and the artwork all be tuned for the same background.
 
 Everything is prefixed `--ep-` and every class is `.ep-*`, so the files drop into an application
 that already carries its own variables without colliding.
 
-Dark mode follows the system preference and can be forced either way with `data-ep-theme` on the
-root element.
+## The artwork
+
+`site/assets/gen/` holds seven generated pieces: the hero and six repository covers. They are a
+deliberate set, dark studio photographs of abstract physical objects with one accent hue each, so
+the grid reads as a series rather than six unrelated pictures.
+
+**None of it pretends to be a screenshot.** RequestDesk and From Scratch show real captures of the
+real things in browser frames. Everything else gets abstract cover art, because inventing UI
+screenshots for software would be a claim a buyer could check and catch.
 
 ## Running it locally
 
