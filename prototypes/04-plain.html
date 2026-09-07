@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eric Patton</title>
+    <style>
+      /*
+       * No web fonts, no cards, no shadows, no animation. The browser's own serif, the browser's
+       * own link blue. The only design decisions are a reading width and some vertical rhythm.
+       */
+      body {
+        max-width: 46em;
+        margin: 3em auto 6em;
+        padding: 0 1.25em;
+        font-family: Times, "Times New Roman", serif;
+        font-size: 19px;
+        line-height: 1.55;
+        color: #111;
+        background: #fff;
+      }
+
+      h1 { font-size: 1.7em; margin: 0 0 0.15em; }
+      h2 { font-size: 1.15em; margin: 2.2em 0 0.5em; }
+
+      .sub { color: #555; margin: 0 0 1.6em; font-style: italic; }
+
+      p { margin: 0 0 1em; }
+
+      ul { margin: 0 0 1em; padding-left: 1.4em; }
+      li { margin-bottom: 0.55em; }
+
+      a { color: #00e; }
+      a:visited { color: #551a8b; }
+
+      dl { margin: 0; }
+      dt { float: left; clear: left; width: 8.5em; color: #555; }
+      dd { margin: 0 0 0.45em 8.5em; }
+
+      hr { border: 0; border-top: 1px solid #ccc; margin: 2.4em 0 0; }
+
+      footer { margin-top: 1.2em; color: #555; font-size: 0.85em; }
+
+      code { font-family: Consolas, monospace; font-size: 0.85em; background: #f4f4f4; padding: 0 3px; }
+
+      @media (max-width: 30em) {
+        dt { float: none; width: auto; }
+        dd { margin-left: 0; margin-bottom: 0.9em; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Eric Patton</h1>
+    <p class="sub">Principal software engineer. New Orleans. Fifteen years.</p>
+
+    <p>
+      I build the tooling AI coding agents run on, I repair the code they write, and I build the
+      backends and game systems that code has to survive in. Federal and enterprise background,
+      including a cloud-native platform serving more than 200,000 people. U.S. Government cleared.
+    </p>
+
+    <h2>Things I will do for money</h2>
+    <ul>
+      <li>
+        <b>Audit and repair an AI-generated or inherited codebase.</b> You get the written findings
+        first: what is broken, what is dangerous, what it costs to fix. You can stop there and take
+        that document to somebody else.
+      </li>
+      <li>
+        <b>Build a custom MCP server</b> over your database, API or codebase, plus the skills,
+        hooks and workflows your team runs it with. Tested like production code, because it is.
+      </li>
+      <li>
+        <b>Build Godot 4 game systems</b>: save, inventory, dialogue, combat. Reusable subsystems
+        with demo scenes and documentation, not scripts welded into your prototype.
+      </li>
+      <li>
+        <b>Build an ASP.NET Core API over PostgreSQL with an Angular front end</b>, including the
+        migrations, container builds and CI that keep it running after I hand it over.
+      </li>
+    </ul>
+
+    <h2>Things you can look at</h2>
+    <dl>
+      <dt><a href="https://requestdesk.eric-patton.dev">RequestDesk</a></dt>
+      <dd>
+        A service request tracker, running right now, with the demo login printed on the sign-in
+        page. Status state machine, append-only history, three roles, 313 tests.
+        (<a href="https://github.com/eric-patton/requestdesk">source</a>)
+      </dd>
+
+      <dt><a href="https://github.com/eric-patton/cwin">cwin</a></dt>
+      <dd>
+        A Windows CLI that screenshots, clicks and types into any window without stealing focus, so
+        a coding agent can drive a GUI while you keep working.
+      </dd>
+
+      <dt><a href="https://github.com/eric-patton/postgres-schema-mcp">postgres-schema-mcp</a></dt>
+      <dd>
+        Read-only PostgreSQL access for an agent: schema browsing, foreign-key maps, capped
+        selects. Writes are rejected, and there are tests that prove it.
+      </dd>
+
+      <dt><a href="https://github.com/eric-patton/loom">loom</a></dt>
+      <dd>
+        A two-way visual editor for Flutter source. Ten property edits in the GUI produce exactly
+        ten changed lines in <code>git diff</code>.
+      </dd>
+
+      <dt><a href="https://github.com/eric-patton/godot-effects">godot-effects</a></dt>
+      <dd>
+        A parting sea over a wave simulation, a volumetric pillar of fire, and a voxel water system.
+        Fourteen shaders, three demo scenes.
+      </dd>
+
+      <dt><a href="https://eric-patton.github.io/from-scratch/">From Scratch</a></dt>
+      <dd>
+        A free 150-hour programming curriculum for kids and teens that I wrote and taught. The
+        handouts compile into a searchable textbook.
+      </dd>
+    </dl>
+
+    <h2>How I work</h2>
+    <p>
+      Findings before changes, so nobody authorises a repair they have not seen described.
+      Integration tests against a real database in a container, not an in-memory substitute that
+      accepts SQL the real one would reject. And it has to run without me: container builds,
+      migrations, seeded data and CI, so the project starts with one command on somebody else's
+      machine.
+    </p>
+
+    <hr />
+    <footer>
+      <a href="https://github.com/eric-patton">github.com/eric-patton</a> &middot; New Orleans,
+      Louisiana &middot; This page is served from a Mac Mini in my house.
+    </footer>
+  </body>
+</html>

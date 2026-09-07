@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poster direction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400;75..100,600;75..100,800;75..100,900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+    <style>
+      :root {
+        --black: #101014;
+        --paper: #f4f3ef;
+        --shout: #ff3b1f;
+        --cool: #1b46f0;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--black);
+        font-family: "Archivo", "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .bar {
+        background: var(--black);
+        color: var(--paper);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 9px 24px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .bar a { color: var(--paper); text-decoration: none; }
+      .bar .dot { color: var(--shout); }
+
+      /* ---- The block: flat colour, type doing all the work ---- */
+      .block {
+        background: var(--shout);
+        color: var(--paper);
+        padding: 46px 24px 40px;
+      }
+
+      .block-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+        gap: 40px;
+        align-items: end;
+      }
+
+      .name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(48px, 9.5vw, 128px);
+        font-weight: 900;
+        font-stretch: 88%;
+        line-height: 0.86;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+      }
+
+      h1 em { font-style: normal; color: var(--black); }
+
+      .menu { display: grid; gap: 3px; }
+
+      .menu a {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        background: var(--black);
+        color: var(--paper);
+        text-decoration: none;
+        padding: 11px 14px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: background 120ms;
+      }
+
+      .menu a:hover { background: var(--cool); }
+      .menu a span:last-child { opacity: 0.55; }
+
+      /* ---- Stats strip ---- */
+      .strip {
+        background: var(--black);
+        color: var(--paper);
+        padding: 20px 24px;
+      }
+
+      .strip-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 22px;
+      }
+
+      .stat .n {
+        font-size: 40px;
+        font-weight: 900;
+        font-stretch: 88%;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .stat .n.shout { color: var(--shout); }
+
+      .stat .l {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-top: 6px;
+      }
+
+      /* ---- Work: big flat tiles ---- */
+      main { max-width: 1180px; margin: 0 auto; padding: 44px 24px 70px; }
+
+      .kicker {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--shout);
+        margin-bottom: 14px;
+      }
+
+      .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 3px; }
+
+      .tile {
+        background: var(--black);
+        color: var(--paper);
+        padding: 20px 18px 18px;
+        min-height: 196px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        transition: background 120ms;
+      }
+
+      .tile:hover { background: var(--cool); }
+
+      .tile.hero { background: var(--shout); grid-column: span 2; }
+      .tile.hero:hover { background: var(--cool); }
+
+      .tile .t {
+        font-size: 27px;
+        font-weight: 800;
+        font-stretch: 88%;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .tile .d {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 1.45;
+        opacity: 0.8;
+        max-width: 42ch;
+      }
+
+      .tile .m {
+        margin-top: auto;
+        padding-top: 16px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        opacity: 0.75;
+      }
+
+      @media (max-width: 60rem) {
+        .block-inner { grid-template-columns: minmax(0, 1fr); align-items: start; }
+        .tile.hero { grid-column: span 1; }
+      }
+
+      footer {
+        background: var(--black);
+        color: var(--paper);
+        padding: 26px 24px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      footer div { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+      footer a { color: var(--shout); text-decoration: none; }
+    </style>
+  </head>
+
+  <body>
+    <div class="bar">
+      <span>Eric Patton <span class="dot">/</span> Principal software engineer</span>
+      <span>New Orleans, LA <span class="dot">/</span> Available</span>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div>
+          <div class="name">Fifteen years of production software</div>
+          <h1>I fix what<br />the robot<br /><em>broke.</em></h1>
+        </div>
+
+        <nav class="menu">
+          <a href="#"><span>01 Codebase rescue</span><span>AI apps</span></a>
+          <a href="#"><span>02 Agent tooling</span><span>MCP</span></a>
+          <a href="#"><span>03 Game systems</span><span>Godot 4</span></a>
+          <a href="#"><span>04 .NET and Angular</span><span>Postgres</span></a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="strip-inner">
+        <div class="stat"><div class="n">15</div><div class="l">Years in production</div></div>
+        <div class="stat"><div class="n">200,000</div><div class="l">People on one platform</div></div>
+        <div class="stat"><div class="n shout">313</div><div class="l">Tests on the live demo</div></div>
+        <div class="stat"><div class="n">24</div><div class="l">Public repositories</div></div>
+      </div>
+    </div>
+
+    <main>
+      <div class="kicker">Open any of these</div>
+
+      <div class="tiles">
+        <a class="tile hero" href="https://requestdesk.eric-patton.dev">
+          <div class="t">RequestDesk</div>
+          <div class="d">
+            A service request tracker running right now, with the demo login printed on the sign-in
+            page. Status state machine, append-only history, three roles, 313 tests.
+          </div>
+          <div class="m"><span>.NET 10 / PG 17 / NG 22</span><span>Live</span></div>
+        </a>
+
+        <a class="tile" href="https://github.com/eric-patton/cwin">
+          <div class="t">cwin</div>
+          <div class="d">
+            Drives any Windows GUI without stealing focus, so an agent can work while you do.
+          </div>
+          <div class="m"><span>C#</span><span>MIT</span></div>
+        </a>
+
+        <a class="tile" href="https://github.com/eric-patton/postgres-schema-mcp">
+          <div class="t">pg-schema-mcp</div>
+          <div class="d">
+            Read-only database access for an agent. Writes rejected, with tests to prove it.
+          </div>
+          <div class="m"><span>TypeScript</span><span>MIT</span></div>
+        </a>
+
+        <a class="tile" href="https://github.com/eric-patton/loom">
+          <div class="t">loom</div>
+          <div class="d">
+            Two-way visual editor for Flutter source. Ten GUI edits, ten changed lines in the diff.
+          </div>
+          <div class="m"><span>Dart</span><span>MIT</span></div>
+        </a>
+
+        <a class="tile" href="https://github.com/eric-patton/godot-effects">
+          <div class="t">godot-effects</div>
+          <div class="d">
+            A parting sea, a volumetric pillar of fire, voxel water. Fourteen shaders.
+          </div>
+          <div class="m"><span>Godot 4</span><span>MIT</span></div>
+        </a>
+
+        <a class="tile" href="https://eric-patton.github.io/from-scratch/">
+          <div class="t">From Scratch</div>
+          <div class="d">
+            A 150-hour programming curriculum for kids, written and taught. Free, and public.
+          </div>
+          <div class="m"><span>Curriculum</span><span>Live</span></div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <div>
+        <span>Eric Patton / New Orleans</span>
+        <a href="https://github.com/eric-patton">github.com/eric-patton</a>
+      </div>
+    </footer>
+  </body>
+</html>
