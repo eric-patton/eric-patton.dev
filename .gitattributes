@@ -1,0 +1,5 @@
+# The Mac Mini checks this repo out and runs build.sh and the container build from it, so line
+# endings are normalised to LF in the repository regardless of which machine committed.
+* text=auto eol=lf
+
+*.png binary
