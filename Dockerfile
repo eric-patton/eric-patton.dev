@@ -9,6 +9,10 @@ COPY site/ /usr/share/nginx/html/
 COPY design-system/*.css /usr/share/nginx/html/design-system/
 COPY prototypes/ /usr/share/nginx/html/prototypes/
 
+# Cache busting: see the script for why this is not optional. Runs once, at image build time.
+COPY nginx/fingerprint-assets.sh /tmp/fingerprint-assets.sh
+RUN sh /tmp/fingerprint-assets.sh /usr/share/nginx/html && rm /tmp/fingerprint-assets.sh
+
 # 127.0.0.1 rather than localhost: busybox wget tries ::1 first, and the answer to a missing
 # IPv6 listener is a confusing "unhealthy" rather than a useful error.
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

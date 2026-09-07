@@ -20,6 +20,19 @@
     <link rel="stylesheet" href="/design-system/base.css" />
     <link rel="stylesheet" href="/design-system/components.css" />
 
+    <script>
+      // Runs before first paint: a saved choice has to be on <html> before the body renders, or
+      // the page flashes the system theme first. Wrapped because storage throws in some contexts.
+      (function () {
+        try {
+          var saved = localStorage.getItem('ep-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-ep-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <style>
       body {
         min-height: 100dvh;

@@ -10,7 +10,8 @@
       content="Principal software engineer, fifteen years. Custom MCP servers and agent tooling, audits and repairs of AI-generated codebases, and ASP.NET Core backends with the tests and CI that keep them alive."
     />
     <link rel="canonical" href="https://eric-patton.dev/" />
-    <meta name="theme-color" content="#0a0b0f" />
+    <meta name="theme-color" content="#f4f5f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0b0f" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://eric-patton.dev/" />
@@ -35,6 +36,19 @@
     <link rel="stylesheet" href="/design-system/base.css" />
     <link rel="stylesheet" href="/design-system/components.css" />
     <link rel="stylesheet" href="/styles.css" />
+
+    <script>
+      // Runs before first paint: a saved choice has to be on <html> before the body renders, or
+      // the page flashes the system theme first. Wrapped because storage throws in some contexts.
+      (function () {
+        try {
+          var saved = localStorage.getItem('ep-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-ep-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>
@@ -51,6 +65,20 @@
           <a href="#work">Work</a>
           <a href="#services">Services</a>
           <a href="#teaching">Teaching</a>
+          <button class="ep-theme-toggle" id="themeToggle" type="button" title="Change theme">
+            <span class="ep-visually-hidden" id="themeToggleLabel">Theme: following your system</span>
+            <svg data-ep-icon="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" />
+              <path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor" stroke="none" />
+            </svg>
+            <svg data-ep-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 2.6v2.2M12 19.2v2.2M4.4 12H2.2M21.8 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5" />
+            </svg>
+            <svg data-ep-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 14.4A8.6 8.6 0 0 1 9.6 4a8.6 8.6 0 1 0 10.4 10.4z" />
+            </svg>
+          </button>
           <a class="ep-btn ep-btn--ghost ep-btn--sm" href="https://github.com/eric-patton" rel="me noopener">
             GitHub
           </a>
@@ -128,7 +156,7 @@
 
               <div class="metrics">
                 <div class="ep-metric">
-                  <div class="ep-metric__value ep-metric__value--accent">313</div>
+                  <div class="ep-metric__value ep-metric__value--accent">318</div>
                   <div class="ep-mono ep-metric__label">Tests passing</div>
                 </div>
                 <div class="ep-metric">
@@ -291,7 +319,7 @@
             <div class="ep-mono ep-metric__label">People on one platform</div>
           </div>
           <div class="ep-metric">
-            <div class="ep-metric__value band__value ep-metric__value--accent">313</div>
+            <div class="ep-metric__value band__value ep-metric__value--accent">318</div>
             <div class="ep-mono ep-metric__label">Tests on the live demo</div>
           </div>
           <div class="ep-metric">
@@ -434,6 +462,39 @@
         { rootMargin: '0px 0px -12% 0px' },
       );
       document.querySelectorAll('.ep-reveal').forEach((el) => revealer.observe(el));
+
+      // Theme control. Cycles system -> light -> dark -> system. The icon is chosen by CSS from
+      // the attribute, so this only has to move the attribute and keep the label honest.
+      const themeButton = document.getElementById('themeToggle');
+      const themeLabel = document.getElementById('themeToggleLabel');
+      const THEME_ORDER = ['system', 'light', 'dark'];
+      const THEME_LABEL = {
+        system: 'Theme: following your system. Activate for light.',
+        light: 'Theme: light. Activate for dark.',
+        dark: 'Theme: dark. Activate to follow your system.',
+      };
+
+      const currentTheme = () => document.documentElement.getAttribute('data-ep-theme') ?? 'system';
+
+      const describeTheme = () => {
+        themeLabel.textContent = THEME_LABEL[currentTheme()];
+        themeButton.title = THEME_LABEL[currentTheme()];
+      };
+
+      themeButton.addEventListener('click', () => {
+        const next = THEME_ORDER[(THEME_ORDER.indexOf(currentTheme()) + 1) % THEME_ORDER.length];
+        if (next === 'system') {
+          document.documentElement.removeAttribute('data-ep-theme');
+        } else {
+          document.documentElement.setAttribute('data-ep-theme', next);
+        }
+        try {
+          next === 'system' ? localStorage.removeItem('ep-theme') : localStorage.setItem('ep-theme', next);
+        } catch (e) {}
+        describeTheme();
+      });
+
+      describeTheme();
 
       // The masthead gains its rule only once the page has moved, and the hero art drifts at a
       // fraction of scroll speed so it reads as a backdrop rather than a pasted-on image.

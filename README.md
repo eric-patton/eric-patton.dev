@@ -23,10 +23,10 @@ is the same arrangement that runs the RequestDesk demo on a neighbouring hostnam
 
 ## The design system
 
-The direction is **imagery-led and dark**. A near-black ground with a slight blue cast, amber as
-the single accent (warm against a cold ground, and the colour the cover art is lit with), and two
-supporting hues: ice blue as the cool counterweight in the headline gradient, lime for anything
-that means live or passing.
+The direction is **imagery-led**, with a near-black dark theme and a cool off-white light one.
+Amber is the single accent, warm against a cold ground and the colour the cover art is lit with,
+with two supporting hues: ice blue as the cool counterweight in the headline gradient, lime for
+anything that means live or passing.
 
 Three type voices, each with a job:
 
@@ -34,11 +34,34 @@ Three type voices, each with a job:
 - **Inter** for working UI, legible at 13px in a dense table row.
 - **JetBrains Mono** for technical detail: counts, stack names, labels, status codes.
 
-It is dark only, deliberately. A half-built light theme is worse than none, and committing to one
-ground lets the accent, the shadows and the artwork all be tuned for the same background.
+### Theming
+
+Every colour is declared once, as a `light-dark()` pair. The browser resolves which half applies
+from the element's `color-scheme`, so switching the entire product is one attribute:
+
+```html
+<html>                       <!-- follows the operating system -->
+<html data-ep-theme="light"> <!-- forced light -->
+<html data-ep-theme="dark">  <!-- forced dark -->
+```
+
+No duplicated palette blocks, no class to toggle on every component, and no JavaScript at all for
+the default case. `light-dark()` only accepts colours, so the few non-colour tokens that differ by
+theme (shadow strength, artwork opacity) are set in two small blocks at the end of `tokens.css`,
+and composite values like `box-shadow` are built from a colour token instead of being duplicated.
+
+RequestDesk imports the same file and gets both themes from it, Angular Material included.
 
 Everything is prefixed `--ep-` and every class is `.ep-*`, so the files drop into an application
 that already carries its own variables without colliding.
+
+### Cache busting
+
+Assets are referenced with a `?v=<content hash>` appended at image build time by
+`nginx/fingerprint-assets.sh`, and the HTML is served `no-cache`. This is not decoration: the site
+once shipped a front page that looked broken because a returning visitor's browser paired freshly
+fetched markup with the previous release's stylesheet, and nothing in the response told it the two
+no longer belonged together.
 
 ## The artwork
 

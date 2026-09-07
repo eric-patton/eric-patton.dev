@@ -175,7 +175,12 @@ pre {
 /* The one place the accent and the cool counterweight meet. Used on the last clause of a
    headline, never on a whole one: a fully gradient headline is unreadable and looks cheap. */
 .ep-gradient {
-  background: linear-gradient(100deg, var(--ep-accent) 8%, #ffd9a8 50%, var(--ep-ice) 96%);
+  background: linear-gradient(
+    100deg,
+    var(--ep-accent) 8%,
+    light-dark(#e8863a, #ffd9a8) 50%,
+    var(--ep-ice) 96%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
